@@ -1,2 +1,2 @@
 # MyPlans
-record my plans
+创建于2016年5月18日，用于记录自己的工作学习计划。
