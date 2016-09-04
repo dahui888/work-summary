@@ -6,14 +6,15 @@
 
 1. Activity的使用。
 1. Activity的模式。
-1. Activity的通讯
+1. Activity的通讯.
 1. Activity的管理。
 1. Activity常见问题：
     - 从一个应用打开另一个应用。
     - 完全退出应用。
     - 动画切换
+    - 从另一个页面回调数据。
 
-###一、Activity常见使用
+###一、Activity基本使用
 在项目的开发中，Activity承载了我们的页面展示，它通过setContentView(int Id)方法绑定显示的布局，然后进行显示。Activity的基本使用。
 
 #### 1、Activity的定义声明
@@ -97,6 +98,12 @@ Intent解析机制主要是通过查找已注册在AndroidManifest.xml中的所�
 1. 如果Intent指定了一个或多个category，这些类别必须全部出现在组建的类别列表中。比如Intent中包含了两个类别：LAUNCHER_CATEGORY 和 ALTERNATIVE_CATEGORY，解析得到的目标组件必须至少包含这两个类别。
 1. 每一个通过startActivity()方法发出的隐式Intent都至少有一个category，就是 "android.intent.category.DEFAULT"，所以只要是想接收一个隐式Intent的Activity都应括"android.intent.category.DEFAULT" category，不然将导致 Intent 匹配失败。
 
+我们知道Activity有许多startXXX方法，所以我们这次总结下：
+- startActivity()：启动单个Activity
+- startActivities(Intent[] intent,Bundle options)：直接跳到最后一个Intent对应的页面，当点击返回键的时候，会逐个返回。常见常见：我们从主页点击产品进到某个产品的详情页面，然后返回键返回到产品列表页面。就可以使用这个。
+- startActivityIfNeeded()当启动的Activity设置了singleTop、singleTask时并且request Code小于0时不启动。
+- startActivityForResult()：启动一个你想数据回调的页面，当页面存在的时候，回调数据到onActivityResult方法中。
+
 ####3、Activity的生命周期
 - onCreate():启动创建Activity，系统第一个执行的方法。
 - onStart()：就在（just before）Activity成为可见之前调用
@@ -136,7 +143,6 @@ Intent解析机制主要是通过查找已注册在AndroidManifest.xml中的所�
 在同一个进程中的Activity之间少不了交互，那么Activity之间怎么进行数据的交互呢？
 
 - Intent承载传递数据
-- StartActivityForResult
 - 广播
 - 第三方通讯组件
 
@@ -153,4 +159,68 @@ Intent解析机制主要是通过查找已注册在AndroidManifest.xml中的所�
 
 在上面的介绍中，我们可以发现Intent超级强大的用途，可用于启动组件，也可以用于传递数据，所以Intent的设计就是为了在组件之间进行“沟通”传递使用。在启动Activity的时候，我们可以使用putExtra方法进行设置数据。然后传递到跳转到的页面。
 
-（2）
+##二、Activity常见场景
+    - 从一个应用打开另一个应用。
+    - 完全退出应用。
+    - 动画切换
+    - 从另一个页面回调数据。
+
+###1、从一个应用启动另一个应用
+这里，我们使用Intent的setComponent方法来设置启动的页面。通过建立ComponentName对象来实现。
+
+	Intent loginIntent = new Intent();
+	ComponentName componentName = new ComponentName("com.dsw.pluginapp", "com.dsw.pluginapp.MainActivity");
+	loginIntent.setComponent(componentName);
+	startActivity(loginIntent);
+
+### 3、从跳转页面回调数据
+在Android的页面之间，经常有数据回调，这个时候我们就可以采用startActivityForResult方法启动Activity，然后使用onActivityResult进行回调。
+启动Activity
+
+	 Intent loginIntent = new Intent();
+	ComponentName componentName = new ComponentName(getApplicationContext(), "com.iflytek.testandroid.LoginActivity");
+	loginIntent.setComponent(componentName);
+	startActivityForResult(loginIntent, requstCode);
+    
+回调的处理，重写onActivityResult方法。
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if(requestCode == this.requstCode){
+			if(resultCode == RESULT_OK){
+				tv.setText(data.getStringExtra("name"));
+			}
+		}
+	}
+回调数据同样通过Intent进行封装。
+
+    Intent intent  = new Intent();
+    intent.putExtra("name", "From LoginActivity");
+    setResult(RESULT_OK, intent);
+    finish();
+    
+这样就完成了数据的回调。
+
+###2、Activity启动动画切换
+在Activity的跳转时，我们可以增加动画效果，一种是通过设置xml配置Activity的theme进行设置。一种是通过代码进行设置。
+（1）、通过XML设置style进行设置。
+首先新建一个style，设置如下属性。
+
+	<style name="AnimationActivity" parent="@android:style/Animation.Activity">  
+    	<item name="android:activityOpenEnterAnimation">@anim/slide_in_left</item>  
+    	<item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>  
+   	 <item name="android:activityCloseEnterAnimation">@anim/slide_in_right</item>  
+    	<item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>  
+	</style>  
+    
+然后创建theme。
+
+	<style name="ThemeActivity">  
+    	<item name="android:windowAnimationStyle">@style/AnimationActivity</item>  
+    	<item name="android:windowNoTitle">true</item>  
+	</style>  
+    
+最后在manifest中给activity设置theme属性即可。
+
+（2）、通过代码设置。
+通过代码设置使用overridePendingTransition(id,id)进行设置。通过调用overridePendingTransition() 可以实时修改Activity的切换动画。但需注意的是:该函数必须在调用startActivity()或者finish()后立即调用，且只有效一次。
