@@ -224,3 +224,6 @@ Intent解析机制主要是通过查找已注册在AndroidManifest.xml中的所�
 
 （2）、通过代码设置。
 通过代码设置使用overridePendingTransition(id,id)进行设置。通过调用overridePendingTransition() 可以实时修改Activity的切换动画。但需注意的是:该函数必须在调用startActivity()或者finish()后立即调用，且只有效一次。
+
+###4、完全退出应用
+我们知道，一般我们从进入到一个应用，然后操作很多页面，我们都会遇到这样的场景，比如：点击进入某个页面，然后点击返回键，返回到上一个页面，上一个页面的数据还保存着，但是我们也可能通过多个页面的跳转然后又返回到主页面，此时点击返回键就退出应用。这是就利用到我们的Activity的启动模式，一般在Activity中我们针对首页的页面，通过设置android:launchMode="singleTask"即可进行解决。
