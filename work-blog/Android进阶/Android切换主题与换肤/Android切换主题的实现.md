@@ -89,3 +89,5 @@
     }
     
 通过一个变量来判断我们的模式切换，然后设置setTheme进行完成。同时要注意我们给启动Activity设置的Flag属性，完成一个重新启动。
+
+![theme](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%BF%9B%E9%98%B6/Android%E5%88%87%E6%8D%A2%E4%B8%BB%E9%A2%98%E4%B8%8E%E6%8D%A2%E8%82%A4/theme.gif)
