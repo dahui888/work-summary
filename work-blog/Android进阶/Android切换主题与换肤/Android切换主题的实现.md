@@ -155,6 +155,6 @@
 
 同时这里提供了两个反射获取资源的工具类，供大家参考。该文章对应的github路径下可查看。
 
-(Android切换主题工具类)[]
+[Android切换主题工具类](https://github.com/dengshiwei/work-summary/tree/master/work-blog/Android%E8%BF%9B%E9%98%B6/Android%E5%88%87%E6%8D%A2%E4%B8%BB%E9%A2%98%E4%B8%8E%E6%8D%A2%E8%82%A4)
 
 上面的两个常用方法介绍完了，这篇文章也算完了，主要是第四中方法，估计很有难度，还没有研究，以后有缘分在研究吧！后面可能会更新一篇关于换肤的框架介绍。
