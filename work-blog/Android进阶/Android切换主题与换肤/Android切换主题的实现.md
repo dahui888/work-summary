@@ -110,7 +110,7 @@
 ![theme](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%BF%9B%E9%98%B6/Android%E5%88%87%E6%8D%A2%E4%B8%BB%E9%A2%98%E4%B8%8E%E6%8D%A2%E8%82%A4/theme.gif)
 
 ### 二、插件式主题
-在插件式的主题方式中，需要两个apk，一个主题apk和一个主体apk，主题apk主要用于存放我们的主题相关的资源。在研究这种方式前，我也看到了很多文章介绍的需要将皮肤apk和主体apk保持相同的sharedUserId，我也试验了，根本不行，两个相同的sharedUserId根本安装不成功，所以这个操作是错误的，不需要设置相同的sharedUserId。
+在插件式的主题方式中，需要两个apk，一个主题apk和一个主体apk，主题apk主要用于存放我们的主题相关的资源。在研究这种方式前，我也看到了很多文章介绍的需要将皮肤apk和主体apk保持相同的sharedUserId，我也试验了，这里该项也不是必要的。这里要有点需要注意：如果将皮肤apk和主体apk保持相同的sharedUserId，必须保证皮肤apk只有资源，不能在Manifest.xml中设置Activity的启动项，不然两个应用不能同时安装。不使用sharedUserId不需要注意该项。同时这里包含两种处理方式：一种是将皮肤apk和主体apk分开进行安装；另一种是将皮肤apk放到主体apk的assets文件夹中，这样在主体apk中通过AssetManager进行资源的方式，本质也是使用下面的两个方法进行资源的访问。
 
 在该方式中主要涉及到两个方法：
 1、android.content.ContextWrapper.createPackageContext(String packageName, int flags)，通过包名就可以获取一个应用程序的Context对象，然后在通过getResource方法获取皮肤apk的Resource对象。
@@ -152,5 +152,9 @@
 仅仅通过这两个方法就可以获取到皮肤资源的apk，然后完成安装。这个唯一的担心是客户是否愿意安装皮肤apk。
 
 ![apktheme](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%BF%9B%E9%98%B6/Android%E5%88%87%E6%8D%A2%E4%B8%BB%E9%A2%98%E4%B8%8E%E6%8D%A2%E8%82%A4/apktheme.gif)
+
+同时这里提供了两个反射获取资源的工具类，供大家参考。该文章对应的github路径下可查看。
+
+(Android切换主题工具类)[]
 
 上面的两个常用方法介绍完了，这篇文章也算完了，主要是第四中方法，估计很有难度，还没有研究，以后有缘分在研究吧！后面可能会更新一篇关于换肤的框架介绍。
