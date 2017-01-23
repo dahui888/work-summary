@@ -122,12 +122,16 @@ git diff顾名思义就是查看difference，显示的格式正是Unix通用的d
 <h4>git remote add origin git@server-name:path/repo-name.git</h4>
 添加远程仓库，一般我们在Github上进行托管我们的代码工程，所以当我们本地仓库的代码进行推送到远程仓库的时候，就需要我们建立一个远程仓库，以便进行推送。
 
+![remote](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E4%BB%8E%E9%9B%B6%E5%8D%95%E6%8E%92/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/remote.png)
+
 <h4>git clone url</h4>
 用于clone复制远程连接的资源库至本地。要克隆一个仓库，首先必须知道仓库的地址，然后使用git clone命令克隆。Git支持多种协议，包括https，但通过ssh支持的原生git协议速度最快。
+
 ![clone](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E4%BB%8E%E9%9B%B6%E5%8D%95%E6%8E%92/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clone.png)
 
 <h4>git branch</h4>
 该指令用于创建一个分支。完整命令：git branch <name>。如果后面没有branchName则表示查看当前存在的分支。每次提交，Git都把它们串成一条时间线，这条时间线就是一个分支。截止到目前，只有一条时间线，在Git里，这个分支叫主分支，即master分支。
+
 ![branch](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E4%BB%8E%E9%9B%B6%E5%8D%95%E6%8E%92/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/branch.png)
 
 <h4>git checkout</h4>
@@ -146,6 +150,7 @@ git diff顾名思义就是查看difference，显示的格式正是Unix通用的d
 
 <h4>git branch -d <name></h4>
 删除指定分支。
+
 ![delete](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E4%BB%8E%E9%9B%B6%E5%8D%95%E6%8E%92/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/delete.png)
 
 <h4>git log --graph</h4>
