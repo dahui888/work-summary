@@ -62,17 +62,17 @@ Git的版本库里存了很多东西，其中最重要的就是称为stage（或
 
 这是我们使用的第一个指令，用于初始化一个git仓库。此时会生成一个.git文件夹，如果没有看到可以通过ls -ah查看。
 
-！[git]()
+![git](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E4%BB%8E%E9%9B%B6%E5%8D%95%E6%8E%92/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/git%20init.png)
 
 <h4>git add</h4>
 用于添加文件到暂存区，git add fileName指令用于将文件从工作区添加到暂存区。例如我们在工作区创建一个readme.txt文件。
 
-[add]()
+![add](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E4%BB%8E%E9%9B%B6%E5%8D%95%E6%8E%92/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/git%20add.png)
 
 <h4>git status</h4>
 查看当前仓库的状态，通过git status指令可以随时让我们掌握仓库的状态。
 
-[status]()
+![status](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E4%BB%8E%E9%9B%B6%E5%8D%95%E6%8E%92/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/status.png)
 
 根据上面的提示，在分支master上，出现了新文件readme.txt。
 
@@ -80,34 +80,34 @@ Git的版本库里存了很多东西，其中最重要的就是称为stage（或
 <h4>git commit</h4>
 实际上就是把暂存区的所有内容提交到当前分支。
 
-[commit]()
+![commit](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E4%BB%8E%E9%9B%B6%E5%8D%95%E6%8E%92/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/commit.png)
 
 <h4>git diff</h4>
 git diff顾名思义就是查看difference，显示的格式正是Unix通用的diff格式，通过该命令可以查看仓库文件修改的内容。比如我们在新增的readme.txt文件中新增一行文字。
 
-[diff]()
+![diff](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E4%BB%8E%E9%9B%B6%E5%8D%95%E6%8E%92/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/diff.png)
 
 <h4>git mv </h4>
 该命令用于文件的重命名，同时可参照[ linux下的文件重命名](http://blog.csdn.net/mr_dsw/article/details/54236542)进行理解。注意，重命名后需要commit提交。
 
-[mv]()
+![mv](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E4%BB%8E%E9%9B%B6%E5%8D%95%E6%8E%92/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/mv.png)
 
 <h4>git log</h4>
 查看我们提交的日志。里面包含提交提交的作者和日期。
 
-[log]()
+![log](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E4%BB%8E%E9%9B%B6%E5%8D%95%E6%8E%92/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/log.png)
 
 这样的格式，我们看着也不是很舒服，此时可以通过指令
 **git log --pretty=oneline**进行格式下看看。
 
-[oneline]()
+![oneline](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E4%BB%8E%E9%9B%B6%E5%8D%95%E6%8E%92/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/oneline.png)
 
 需要友情提示的是，你看到的一大串类似48a5c3a4...55f6986a的是commit id（版本号），和SVN不一样，Git的commit id不是1，2，3……递增的数字，而是一个SHA1计算出来的一个非常大的数字，用十六进制表示，而且你看到的commit id和我的肯定不一样，以你自己的为准。为什么commit id需要用这么一大串数字表示呢？因为Git是分布式的版本控制系统，后面我们还要研究多人在同一个版本库里工作，如果大家都用1，2，3……作为版本号，那肯定就冲突了。
 
 <h4>git reset</h4>
 用于版本的回退，在git中HEAD代表当前版本，我们回退必须知道我们的版本号才能进行回退。这时就需要结合我们上面的git log进行版本号的查看，然后进行版本的回退。完整指令**git reset --hard commit_id**
 
-[reset]()
+![reset](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E4%BB%8E%E9%9B%B6%E5%8D%95%E6%8E%92/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/reset.png)
 
 为什么git回退版本很快呢？这时因为git每次版本的更新只是让HEAD头指针进行版本状态的指定，然后把工作区进行更新。如果我们回退之后后悔了，就需要借助git reflog进行操作命令历史查看，然后进行恢复。
 
@@ -124,34 +124,34 @@ git diff顾名思义就是查看difference，显示的格式正是Unix通用的d
 
 <h4>git clone url</h4>
 用于clone复制远程连接的资源库至本地。要克隆一个仓库，首先必须知道仓库的地址，然后使用git clone命令克隆。Git支持多种协议，包括https，但通过ssh支持的原生git协议速度最快。
-[clone]()
+![clone](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E4%BB%8E%E9%9B%B6%E5%8D%95%E6%8E%92/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clone.png)
 
 <h4>git branch</h4>
 该指令用于创建一个分支。完整命令：git branch <name>。如果后面没有branchName则表示查看当前存在的分支。每次提交，Git都把它们串成一条时间线，这条时间线就是一个分支。截止到目前，只有一条时间线，在Git里，这个分支叫主分支，即master分支。
-[branch]()
+![branch](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E4%BB%8E%E9%9B%B6%E5%8D%95%E6%8E%92/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/branch.png)
 
 <h4>git checkout</h4>
 该指令用于切换分支。完整命令：git checkout <name>。比如上面我们创建的develop分支，我们从master分支切换到develop分支进行开发工作。
 
-[checkout]()
+![checkout](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E4%BB%8E%E9%9B%B6%E5%8D%95%E6%8E%92/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/checkout.png)
 
 当然，我们也可以通过**git checkout -b <name>**指令，直接完成创建分支并切换到新建的分支。
 
-[release]()
+![release](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E4%BB%8E%E9%9B%B6%E5%8D%95%E6%8E%92/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/release.png)
 
 <h4>git merge</h4>
 该指令用于合并分支。git merge命令用于合并指定分支到当前分支。我们在指定分支上修改的内容，必须通过分支合并才能同步到主要分支上。
 
-[merge]()
+![merge](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E4%BB%8E%E9%9B%B6%E5%8D%95%E6%8E%92/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/merge.png)
 
 <h4>git branch -d <name></h4>
 删除指定分支。
-[delete]()
+![delete](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E4%BB%8E%E9%9B%B6%E5%8D%95%E6%8E%92/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/delete.png)
 
 <h4>git log --graph</h4>
 当Git无法自动合并分支时，就必须首先解决冲突。解决冲突后，再提交，合并完成。用git log --graph命令可以看到分支合并图。
 
-[graph]()
+![graph](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E4%BB%8E%E9%9B%B6%E5%8D%95%E6%8E%92/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/graph.png)
 
 这些指令，总得概括起来就是。
 
@@ -161,6 +161,8 @@ git diff顾名思义就是查看difference，显示的格式正是Unix通用的d
 
 	1. 	第一步，使用命令git add <file>，注意，可反复多次使用，添加多个文件；
 	1. 	第二步，使用命令git commit，完成。
+
+![gitall](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E4%BB%8E%E9%9B%B6%E5%8D%95%E6%8E%92/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/0.jpg)
 
 - Git鼓励大量使用分支：
 	1. 	查看分支：git branch
@@ -234,9 +236,9 @@ mater 分支新建了一个叫做 develop 的分支，此时 develop 分支跟 m
 	git checkout -b develop origin/develop
 
 ####3、团队协作
->注本段内容从stormzhang的讲解，非常棒，特此记录下。
+>注本段内容从stormzhang的讲解，非常棒，特此记录下。分支的使用也是git很大的特色，一定要把这段内容理解。
 
-[flow]()
+![flow](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E4%BB%8E%E9%9B%B6%E5%8D%95%E6%8E%92/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/team.png)
 
 第一次看上面那个图是不是一脸懵逼？跟我当时一样，不急，我来用简单的话给你们解释
 下。
