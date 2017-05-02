@@ -1,4 +1,4 @@
-##Android绘制工具Canvas
+## Android绘制工具Canvas
 
 在Android自定义View的学习中，我们经常需要绘制，Canvas类就承担起绘制的作用。在Android中，绘制一个View需要四个基本的步骤：
 1. 一个视图或者像素的承载体：Bitmap
@@ -6,15 +6,15 @@
 3. 绘制物：Rect、Path、text、Bitmap
 4. 绘制方式的承载体：Paint
 
-####如何构建一个Canvas对象
+#### 如何构建一个Canvas对象
 通过查看Canvas的api得知：
 - Canvas()：创建一个空的栅格画布。
 - Canvas(Bitmap bitmap)：构建一个指定bitmap的画布。
 
 构造方法有两种，一种是创建空的栅格画布画布对象用来绘制。另一种是构建一个Canvas对象，绘制在Bitmap上。
 
-####Canvas方法介绍
-#####1、clipXXX：裁剪画布
+#### Canvas方法介绍
+##### 1、clipXXX：裁剪画布
 - clipPath(Path path)：裁剪掉指定的path区域的Canvas
 - clipPath(Path path, Region.Op op)：裁剪掉指定的path区域的Canvas，同时指定与上次裁剪的类型。
 - clipRect(int left, int top, int right, int bottom)：裁剪掉指定矩形的Canvas区域
@@ -101,4 +101,4 @@ canvas.clipPath(path, Region.Op.REPLACE);
 **6、Region.Op.REPLACE**
 ![REPLACE](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%A7%86%E5%9B%BE%E5%9F%BA%E7%A1%80/%E5%9B%BE%E5%BA%93/Region.Op.REPLACE.png)
 
-#####2、drawXXX：绘制系列
+##### 2、drawXXX：绘制系列
