@@ -1,7 +1,7 @@
-##LinearLayout onMeasure 过程分析
+## LinearLayout onMeasure 过程分析
 >昨天做一个LinearLayout布局的时候，遇到一个想象，当给LinearLayout设置android:background属性的时候，LinearLayout的高度就出现意想不到的效果。
 
-###一、导火索
+### 一、导火索
 先看我昨天的测试布局文件：
 
 	<?xml version="1.0" encoding="utf-8"?>
@@ -35,9 +35,9 @@
 >LinearLayout是我们Android中最常见的布局，里面有的属性确实知悉的比较少，这次也算探究一下。
 >源码Android-25
 
-###二、LinearLayout测量过程分析
+### 二、LinearLayout测量过程分析
 
-####onMeasure方法
+#### onMeasure方法
 
 ----------
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -51,7 +51,7 @@
 在**onMeasure**方法中，根据**LinearLayout**的方向调用不同的**measure**方法进行测量。
 
 
-####measureVertical()
+#### measureVertical()
 
 ----------
 	void measureVertical(int widthMeasureSpec, int heightMeasureSpec) {
@@ -152,7 +152,7 @@
 
 在measureVertical方法中，总体来说分为两部分，一部分是针对子view的基础属性测量，另一部分是对weight部分进行计算。
 
-####第一次测量过程
+#### 第一次测量过程
 	// See how tall everyone is. Also remember max width.
 	//第一次测量，遍历所有的子View的高度，同时记录下最大的高度
 	for (int i = 0; i < count; ++i) {
@@ -293,7 +293,7 @@
 
 在上面的测量过程中，我们可以发现，针对View.GONE属性的View，无需对它的高度进行测量，可以直接跳过，这也是我们设置View.GONE可以隐藏控件占据空间的原因，也体现与View.INVISIBLE的区别。在这里，我们需要注意一下对lp.height==0&&lp.weight==0属性的View的处理，这部分处理分为两部分，一部分是LinearLayout的高度为EXACTLY的时候，通过将mTotalLenght与totalLength + lp.topMargin + lp.bottomMargin比较，取大值。
 
-####第二次测量
+#### 第二次测量
     if (useLargestChild &&
             (heightMode == MeasureSpec.AT_MOST || heightMode == MeasureSpec.UNSPECIFIED)) {
 		//如果设置了measureWithLargestChild 且 高度测量模式为 AT_MOST 或者 UNSPECIFIED，则重新计算 mToatalLength
@@ -322,7 +322,7 @@
 
 在第二次测量过程中，判断系统是否使用了largestChild属性，并且此时的LinearLayout高度是不定的，然后开始重新测量mTotalLenght的长度。
 
-####第三次测量
+#### 第三次测量
 		//计算未分配的宽度
 	int remainingExcess = heightSize - mTotalLength
             + (mAllowInconsistentMeasurement ? 0 : consumedExcessSpace);
