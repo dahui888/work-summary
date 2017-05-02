@@ -1,7 +1,7 @@
-##Android四大组件之Service解析
+## Android四大组件之Service解析
 学习Android这么久，也没有对Service进行深入全面的学习，所以这篇文章的出发点就是全面的解析下Service。我们知道，service在我们项目中主要用于处理一些后台操作或一些长期需要处理的事务，比如常见的音乐播放，即时我们退出界面，它亦然能够为我们服务。这就是service的妙处。下面我们开始来对service进行一个全面的学习。
 
-###一、Service的分类
+### 一、Service的分类
 1、按照运行进程来分：
 
 * 本地服务（Local Service）<br>
@@ -16,7 +16,7 @@
 * 后台服务<br>
   默认的服务，当我们启动一个服务，不做处理的时候，就是一个后台服务。常见案例：新闻的自动更新、天气的获取
 
-###二、Service的启动与停止
+### 二、Service的启动与停止
 启动service由两种方式，一种是通过startService()方法借助intent来进行启动服务。例如：
 
 	
@@ -39,7 +39,7 @@ bindService(intent,serviceConnection,BIND_AUTO_CREATE);
 
 这里就简要介绍下吧！以便我们后面测试Service的生命周期进行使用。
 
-###三、Service的生命周期
+### 三、Service的生命周期
 Android的四大组件都有生命周期，所以service也具有生命周期，供我们进行service的管理。我们先做个小案例来看看，然后再结合官网给我们提供的service生命周期图来分析下service的生命周期。
 
 在android studio中新建一个module，命名为servicestudy。然后新建一个service的子类，MyService。
@@ -309,7 +309,7 @@ MyService﹕ onDestroy
 * android:name：服务的路径名称，必须设置
 * android:process：服务运行的进程名称，默认主进程
 
-###四、Service与Activity的通信
+### 四、Service与Activity的通信
 在上面的生命周期测试代码中，在bindService()方法中，我们已经使用了ServiceConnection对象。不错，这个对象就是组件与Service进行通信的媒介，通过ServiceConnection对象，我们能够与service进行交互。在onBind()方法中返回一个IBinder对象，所以我们需要自定义一个Binder的子类来处理业务逻辑，然后返回改Binder子类的实例。我们针对上面的代码修改即可。
 
 创建一个MyBinder的子类：
@@ -369,7 +369,7 @@ MyService﹕ onDestroy
 
 可以看到，我们通过ServiceConnection可以监听到service的状态，然后控制service连接成功后的执行内容，同时获取对应的执行结果，这样，我们就在activity中实现了对service的控制，二者之间通过Binder对象进行通信。
 
-###五、前台Service
+### 五、前台Service
 默认情况下，我们启动的service都是后台service，都是在后台为我们处理业务逻辑，但是也有一些前台service，正如前面所说，当系统由于内存原因杀死我们的service时，前台service能够给予用户一种提醒的效果。前台service必须提供notification，同时必须防止"Ongoing"头，这意味着这个通知不能滑动杀出，除非服务停止或者服务从前台移出。常见的：腾讯手机管家、酷狗音乐在运行的时候，顶部的通知栏你就无法滑动删除，就是这个玩意。下面我们来创建一个前台service：
 
 ```
