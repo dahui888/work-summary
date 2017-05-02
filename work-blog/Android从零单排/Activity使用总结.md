@@ -14,7 +14,7 @@
     - 动画切换
     - 从另一个页面回调数据。
 
-###一、Activity基本使用
+### 一、Activity基本使用
 在项目的开发中，Activity承载了我们的页面展示，它通过setContentView(int Id)方法绑定显示的布局，然后进行显示。Activity的基本使用。
 
 #### 1、Activity的定义声明
@@ -71,7 +71,7 @@
         </intent-filter>
     </activity>
     
-####2、Activity的跳转
+#### 2、Activity的跳转
 我们知道Activity承载了我们应用几乎全部的页面显示工作，那么我们如何进行页面之前的跳转呢？这里就需要使用Intent类进行页面的跳转。
 
 显示跳转，针对我们在同一个应用中知道跳转页面的名字。
@@ -104,7 +104,7 @@ Intent解析机制主要是通过查找已注册在AndroidManifest.xml中的所�
 - startActivityIfNeeded()当启动的Activity设置了singleTop、singleTask时并且request Code小于0时不启动。
 - startActivityForResult()：启动一个你想数据回调的页面，当页面存在的时候，回调数据到onActivityResult方法中。
 
-####3、Activity的生命周期
+#### 3、Activity的生命周期
 - onCreate():启动创建Activity，系统第一个执行的方法。
 - onStart()：就在（just before）Activity成为可见之前调用
 - onRestart()：Activity从后台重新回到前台时被调用，用户可见但不可交互
@@ -123,7 +123,7 @@ Intent解析机制主要是通过查找已注册在AndroidManifest.xml中的所�
 * exit:  onPause---->onStop---->onWindowFocusChanged(false)  ---------------------- (lockscreen)
 * exit : onPause----->onWindowFocusChanged(false)-------->onWindowVisibilityChanged--visibility=8------------>onStop(to another activity)
 
-####4、Activity的基本模式
+#### 4、Activity的基本模式
 在Android开发中，Activity有四种模式，我们可以在Manifest.xml文件中注册时进行设置：
 
 	<activity  
@@ -139,7 +139,7 @@ Intent解析机制主要是通过查找已注册在AndroidManifest.xml中的所�
 
 合理运用这四种模式，能够使应用的体验和资源使用率更好。比如：singleTask适合作为程序入口点，因为app的入口点就一个。singleInstance适合需要与程序分离开的页面，例如闹铃提醒，将闹铃提醒与闹铃设置分离。
 
-####5、Activity的通讯数据传递
+#### 5、Activity的通讯数据传递
 在同一个进程中的Activity之间少不了交互，那么Activity之间怎么进行数据的交互呢？
 
 - Intent承载传递数据
@@ -159,13 +159,13 @@ Intent解析机制主要是通过查找已注册在AndroidManifest.xml中的所�
 
 在上面的介绍中，我们可以发现Intent超级强大的用途，可用于启动组件，也可以用于传递数据，所以Intent的设计就是为了在组件之间进行“沟通”传递使用。在启动Activity的时候，我们可以使用putExtra方法进行设置数据。然后传递到跳转到的页面。
 
-##二、Activity常见场景
+## 二、Activity常见场景
     - 从一个应用打开另一个应用。
     - 完全退出应用。
     - 动画切换
     - 从另一个页面回调数据。
 
-###1、从一个应用启动另一个应用
+### 1、从一个应用启动另一个应用
 这里，我们使用Intent的setComponent方法来设置启动的页面。通过建立ComponentName对象来实现。
 
 	Intent loginIntent = new Intent();
@@ -201,7 +201,7 @@ Intent解析机制主要是通过查找已注册在AndroidManifest.xml中的所�
     
 这样就完成了数据的回调。
 
-###2、Activity启动动画切换
+### 2、Activity启动动画切换
 在Activity的跳转时，我们可以增加动画效果，一种是通过设置xml配置Activity的theme进行设置。一种是通过代码进行设置。
 （1）、通过XML设置style进行设置。
 首先新建一个style，设置如下属性。
@@ -225,5 +225,5 @@ Intent解析机制主要是通过查找已注册在AndroidManifest.xml中的所�
 （2）、通过代码设置。
 通过代码设置使用overridePendingTransition(id,id)进行设置。通过调用overridePendingTransition() 可以实时修改Activity的切换动画。但需注意的是:该函数必须在调用startActivity()或者finish()后立即调用，且只有效一次。
 
-###4、完全退出应用
+### 4、完全退出应用
 我们知道，一般我们从进入到一个应用，然后操作很多页面，我们都会遇到这样的场景，比如：点击进入某个页面，然后点击返回键，返回到上一个页面，上一个页面的数据还保存着，但是我们也可能通过多个页面的跳转然后又返回到主页面，此时点击返回键就退出应用。这是就利用到我们的Activity的启动模式，一般在Activity中我们针对首页的页面，通过设置android:launchMode="singleTask"即可进行解决。
