@@ -1,12 +1,12 @@
-##ButterKnife基础使用总结
+## ButterKnife基础使用总结
 
-###一、前言
-####1、ButterKnife简介
+### 一、前言
+#### 1、ButterKnife简介
 butterknife是出自Android大神JakeWharton之手的一个开源库，它通过注解的方式来替代android中view的相关操作。专注于Android系统的View,可以减少大量的findViewById以及setOnClickListener代码，可视化一键生成。这个开源库可以让我们从大量的findViewById()和setonclicktListener()解放出来，其对性能的影响微乎其微(查看过Butter Knife的源码，其自定义注解的实现都是限定为RetentionPolicy.CLASS，也就是到编译出.class文件为止有效，在运行时不额外消耗性能，其是通过java注解自动生成java代码的形式来完成工作)。
 
 项目地址：[https://github.com/JakeWharton/butterknife](https://github.com/JakeWharton/butterknife)
 
-####2、ButterKnife优势
+#### 2、ButterKnife优势
 
 1. 通过BindXXX等方式来替代View的常见操作，简化代码，提升开发效率。
 1. 通过注解的方式实现，但是运行时不会影响App的效率。
@@ -15,7 +15,7 @@ butterknife是出自Android大神JakeWharton之手的一个开源库，它通过
 
 ----------
 
-###二、如何引用ButterKnife？
+### 二、如何引用ButterKnife？
 
 在Module对应的gradle配置中，添加如下：
 
@@ -41,7 +41,7 @@ butterknife是出自Android大神JakeWharton之手的一个开源库，它通过
 
 ----------
 
-###三、ButterKnife常见使用
+### 三、ButterKnife常见使用
 
 1. 控件id 注解： @BindView(int id)
 
@@ -161,8 +161,8 @@ butterknife是出自Android大神JakeWharton之手的一个开源库，它通过
 
 
 ----------
-###三、ButterKnife快捷插件
-####Zelezny : Butterknife插件的使用
+### 三、ButterKnife快捷插件
+#### Zelezny : Butterknife插件的使用
 >这是一款在Android Studio中使用的插件，用于快速生成ButterKnife的使用。可参照下图示例：
 
 ![first](http://img.blog.csdn.net/20161031141739545)
