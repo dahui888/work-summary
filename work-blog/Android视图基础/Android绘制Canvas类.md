@@ -89,16 +89,27 @@ private void createBitmap(){
 canvas.clipPath(path, Region.Op.REPLACE);
 ```
 **1、Region.Op.DIFFERENCE效果**
+
 ![IDFFERENCE](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%A7%86%E5%9B%BE%E5%9F%BA%E7%A1%80/%E5%9B%BE%E5%BA%93/Region.Op.DIFFERENCE.png)
+
 **2、Region.Op.INTERSECT**
+
 ![INTERSECT](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%A7%86%E5%9B%BE%E5%9F%BA%E7%A1%80/%E5%9B%BE%E5%BA%93/Region.Op.INTERSECT.png)
+
 **3、Region.Op.UNION**
+
 ![UNION](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%A7%86%E5%9B%BE%E5%9F%BA%E7%A1%80/%E5%9B%BE%E5%BA%93/Region.Op.UNION.png)
+
 **4、Region.Op.XOR**
+
 ![XOR](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%A7%86%E5%9B%BE%E5%9F%BA%E7%A1%80/%E5%9B%BE%E5%BA%93/Region.Op.XOR.png)
+
 **5、Region.Op.REVERSE_DIFFERENCE**
+
 ![REVERSE_DIFFERENCE](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%A7%86%E5%9B%BE%E5%9F%BA%E7%A1%80/%E5%9B%BE%E5%BA%93/Region.Op.REVERSE_DIFFERENCE.png)
+
 **6、Region.Op.REPLACE**
+
 ![REPLACE](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%A7%86%E5%9B%BE%E5%9F%BA%E7%A1%80/%E5%9B%BE%E5%BA%93/Region.Op.REPLACE.png)
 
 ##### 2、drawXXX：绘制系列
