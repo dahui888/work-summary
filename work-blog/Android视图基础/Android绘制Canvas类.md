@@ -112,4 +112,134 @@ canvas.clipPath(path, Region.Op.REPLACE);
 
 ![REPLACE](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%A7%86%E5%9B%BE%E5%9F%BA%E7%A1%80/%E5%9B%BE%E5%BA%93/Region.Op.REPLACE.png)
 
-##### 2、drawXXX：绘制系列
+##### 2、drawXXX系列方法
+Canvas是我们的画布，给我们提供了一系列的方法满足我们在画布上进行绘制的需求，通过对api的分类，主要可以分为以下几种的绘制：
+
+- drawArc：绘制圆弧。
+- drawARGB：给整个可见的画布区域绘制颜色，即背景色。
+- drawBitmap：绘制Bitmap对象。
+- drawBitmapMesh：
+- drawCircle：绘制圆形。
+- drawColor：给整个可见的画布区域绘制颜色，即背景色。同drawARGB。
+- drawLine(s)：绘制线条。
+- drawOval：绘制椭圆。
+- drawPaint：给Canvas设置画笔paint。
+- drawPatch：绘制.9.png图片。
+- drawPath：绘制Path路径。
+- drawPicture：绘制Picture对象。
+- drawPoint(s)：绘制点。
+- drawRect：绘制矩形。
+- drawRoundRect：绘制圆角矩形。
+- drawRGB：给整个可见的画布区域绘制颜色，即背景色。同drawARGB。
+- drawText：绘制文本。
+
+**1、drawArc：绘制圆弧**
+
+- drawArc(RectF oval, float startAngle, float sweepAngle, boolean useCenter, Paint paint)
+- public void drawArc(float left, float top, float right, float bottom, float startAngle,float sweepAngle, boolean useCenter, Paint paint)
+
+以上两个方法中，本质的核心都是根据指定的RectF矩形约束的范围进行圆弧的绘制。重点的以下几个参数的约束。
+
+- startAngle：起始角度，这里需要注意：如果起始角度<0或>=360度，则取angle %360作为起始角度。
+- sweepAngle：如果旋转角度>360度，则绘制全部。这点不同于path.arcTo的angle%360度取余数。如果angle是负数，则进行取余处理。
+- useCenter：如果设置中心，则绘制圆弧的时候连接起点、中点和终点的连线闭合。
+
+>此处补充一点，负数的余数是负整数<=0，正数的余数是正整数>=0。绘制的圆弧会自动进行缩放来填充指定矩形的椭圆形状，不会超过指定的矩形区域大小。换种说法，绘制的圆弧片段是矩形的内切椭圆上的指定角度的圆弧。
+
+```java
+/**
+ * 绘制圆弧
+ */
+private void drawArc(){
+    //创建空白的Bitmap对象
+    Bitmap bitmap = Bitmap.createBitmap(500, 500, Bitmap.Config.ARGB_8888);
+    Canvas canvas = new Canvas(bitmap);
+    Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    paint.setColor(Color.BLUE);
+    paint.setStyle(Paint.Style.STROKE);
+    //绘制我们约束的矩形的范围，以便形成对比
+    RectF rect = new RectF(100,200,400,400);
+    canvas.drawRect(rect,paint);
+
+    //绘制圆弧的形状
+    paint.setColor(Color.CYAN);
+    canvas.drawArc(rect,-180,90,false,paint);
+    canvas.drawArc(rect,20,80,true,paint);
+    iv_image.setImageBitmap(bitmap);
+}
+```
+效果图：
+
+**2、drawBitmap系列：绘制Bitmap资源**
+- drawBitmap(int[] colors, int offset, int stride, float x, float y, int width, int height, boolean hasAlpha, Paint paint)：将集合中的Colors绘制成Bitmap对象。需要开启硬件加速器，已经在api21中过期。
+- drawBitmap(Bitmap bitmap, Matrix matrix, Paint paint)：绘制一个给定matrix的Bitmap对象。
+- drawBitmap(int[] colors, int offset, int stride, int x, int y, int width, int height, boolean hasAlpha, Paint paint)：将集合中的Colors绘制成Bitmap对象。需要开启硬件加速器，已经在api21中过期。
+- drawBitmap(Bitmap bitmap, Rect src, RectF dst, Paint paint)：绘制一个适应给定RectF大小的Bitmap资源。
+- drawBitmap(Bitmap bitmap, float left, float top, Paint paint)：在left、top的位置出绘制一个Bitmap资源。
+- drawBitmap(Bitmap bitmap, Rect src, Rect dst, Paint paint)
+
+**3、drawColor系列**
+Canvas为我们提供了绘制背景色的方法。
+
+- drawARGB(int a, int r, int g, int b)
+- drawColor(int color)
+- drawColor(int color, PorterDuff.Mode mode)
+- drawRGB(int r, int g, int b)
+
+首先简单介绍下几个参数：
+- a：透明度，取值(0..255)，0表示完全透明，255表示完全不透明
+- r：三元素中的红，取值(0..255)
+- g：三元素中的绿，取值(0..255)
+- b：三元素中的蓝，取值(0..255)
+- PorterDuff.Mode：颜色混合模式，共有18中混合方式。
+
+在drawColor系列的方法中，我认为掌握的难点就是针对PorterDuff.Mode的掌握和使用。
+
+1. PorterDuff.Mode.CLEAR：所绘制不会提交到画布上。
+2. PorterDuff.Mode.SRC：显示上层绘制图片
+3. PorterDuff.Mode.DST：显示下层绘制图片
+4. PorterDuff.Mode.SRC_OVER：正常绘制显示，上下层绘制叠盖。
+5. PorterDuff.Mode.DST_OVER：上下层都显示。下层居上显示。
+6. PorterDuff.Mode.SRC_IN：取两层绘制交集。显示上层。
+7. PorterDuff.Mode.DST_IN：取两层绘制交集。显示下层。
+8. PorterDuff.Mode.SRC_OUT：取上层绘制非交集部分。
+9. PorterDuff.Mode.DST_OUT：取下层绘制非交集部分。
+10. PorterDuff.Mode.SRC_ATOP：取下层非交集部分与上层交集部分
+11. PorterDuff.Mode.DST_ATOP：取上层非交集部分与下层交集部分
+12. PorterDuff.Mode.XOR： 异或：去除两图层交集部分
+13. PorterDuff.Mode.DARKEN：取两图层全部区域，交集部分颜色加深
+14. PorterDuff.Mode.LIGHTEN： 取两图层全部，点亮交集部分颜色
+15. PorterDuff.Mode.MULTIPLY： 取两图层交集部分叠加后颜色
+16. PorterDuff.Mode.SCREEN：取两图层全部区域，交集部分变为透明色
+17. PorterDuff.Mode.ADD：
+18. PorterDuff.Mode.OVERLAY：
+
+>注意：在上面的描述中下层的图层对应的是Dst图层，上层对应的是Src图层。
+
+通过一段测试代码进行测试该功能的使用。
+
+```java
+/**
+ * PorterDuff的使用测试
+ */
+private void drawColorWithPorterDuff(){
+    //首先我们创建一个绘制的背景画布
+    Bitmap bitmapBG = Bitmap.createBitmap(400, 400, Bitmap.Config.ARGB_8888);
+    Bitmap bitmapDst = createDst(200, 200);
+    Bitmap bitmapSrc = createSrc(200, 200);
+    Canvas canvas = new Canvas(bitmapBG);
+    Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    canvas.drawColor(Color.GRAY);
+
+    int sc = canvas.saveLayer(0, 0, 400, 400,null,
+            Canvas.CLIP_TO_LAYER_SAVE_FLAG);
+    //创建Dst图,绘制出来
+    canvas.drawBitmap(bitmapDst,0,0,paint);
+    //创建Src图
+    paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_OVER));
+    canvas.drawBitmap(bitmapSrc,100,100,paint);
+    canvas.restoreToCount(sc);
+
+    iv_image.setImageBitmap(bitmapBG);
+}
+```
