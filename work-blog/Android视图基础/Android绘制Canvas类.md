@@ -276,10 +276,10 @@ Canvas为我们提供了绘制背景色的方法。
 14. PorterDuff.Mode.LIGHTEN： 取两图层全部，点亮交集部分颜色
 15. PorterDuff.Mode.MULTIPLY： 取两图层交集部分叠加后颜色
 16. PorterDuff.Mode.SCREEN：取两图层全部区域，交集部分变为透明色
-17. PorterDuff.Mode.ADD：
-18. PorterDuff.Mode.OVERLAY：
+17. PorterDuff.Mode.ADD：饱和度叠加
+18. PorterDuff.Mode.OVERLAY：像素是进行 Multiply （正片叠底）混合还是 Screen （屏幕）混合，取决于底层颜色，但底层颜色的高光与阴影部分的亮度细节会被保留
 
->注意：在上面的描述中下层的图层对应的是Dst图层，上层对应的是Src图层。
+>注意：在上面的描述中下层的图层对应的是Dst图层，上层对应的是Src图层。注意PorterDuff.Mode是作用于相互叠加的位置。
 
 通过一段测试代码进行测试该功能的使用。
 
@@ -290,8 +290,8 @@ Canvas为我们提供了绘制背景色的方法。
 private void drawColorWithPorterDuff(){
     //首先我们创建一个绘制的背景画布
     Bitmap bitmapBG = Bitmap.createBitmap(400, 400, Bitmap.Config.ARGB_8888);
-    Bitmap bitmapDst = createDst(200, 200);
-    Bitmap bitmapSrc = createSrc(200, 200);
+    Bitmap bitmapDst = createDst(400, 400);
+    Bitmap bitmapSrc = createSrc(400, 400);
     Canvas canvas = new Canvas(bitmapBG);
     Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     canvas.drawColor(Color.GRAY);
@@ -301,13 +301,48 @@ private void drawColorWithPorterDuff(){
     //创建Dst图,绘制出来
     canvas.drawBitmap(bitmapDst,0,0,paint);
     //创建Src图
-    paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_OVER));
-    canvas.drawBitmap(bitmapSrc,100,100,paint);
+    paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+    canvas.drawBitmap(bitmapSrc,0,0,paint);
     canvas.restoreToCount(sc);
-
     iv_image.setImageBitmap(bitmapBG);
 }
+
+/**
+ * 创建Dst图
+ * @param w
+ * @param h
+ * @return
+ */
+private Bitmap createDst(int w, int h) {
+    Bitmap bitDstMap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+    Canvas canvas = new Canvas(bitDstMap);
+    Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    paint.setColor(0xFFFFCC44);
+    canvas.drawRect(0, 0, 200, 200,paint);
+    return bitDstMap;
+}
+
+/**
+ * 创建Src资源图
+ * @param w     宽度
+ * @param h     高度
+ * @return
+ */
+private Bitmap createSrc(int w, int h) {
+    Bitmap bitSrcMap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+    Canvas canvas = new Canvas(bitSrcMap);
+    Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    paint.setColor(0xFF66AAFF);
+    canvas.drawRect(100, 100, 300, 300,paint);
+    return bitSrcMap;
+}
 ```
+在上面的测试代码中，我们创建两个矩形来模拟这个叠加效果。创建一个400×400大小的Dst图像区域，然后我们绘制一个[（0,0），（200,200）]位置的矩形。同样，创建一个400×400大小的Src图像区域，然后我们绘制一个[（100,100），（300,300）]位置的矩形。然后我们将Dst和Src绘制在400×400大小底图中，这里有一个细节，为了达到比较好的展示效果，我们让Dst和Src矩形所占的“图纸”大小相同，但是图形的位置不同。**谨记，PorterDuff.Mode作用于叠加部分。**
+演示效果：
+![PorterDuff](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%A7%86%E5%9B%BE%E5%9F%BA%E7%A1%80/%E5%9B%BE%E5%BA%93/PorterDuffMode.png)
+
+>建议，最好实际拿着我上面的实例进行操作下，看看实际的效果。
+
 展示效果图：
 ![porterduff](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%A7%86%E5%9B%BE%E5%9F%BA%E7%A1%80/%E5%9B%BE%E5%BA%93/PorterDuffMode.png)
 
