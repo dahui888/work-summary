@@ -178,6 +178,71 @@ private void drawArc(){
 - drawBitmap(Bitmap bitmap, float left, float top, Paint paint)：在left、top的位置出绘制一个Bitmap资源。
 - drawBitmap(Bitmap bitmap, Rect src, Rect dst, Paint paint)
 
+绘制Bitmap对象。
+```java
+private class BitmapView extends View{
+    Paint paint = null;
+    Bitmap bitmap = null;
+    public BitmapView(Context context) {
+        super(context);
+        paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paint.setFlags(Paint.DITHER_FLAG);
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+        bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher)
+                .copy(Bitmap.Config.ARGB_8888,true);
+        drawBitmap(canvas, 100, 100, paint);
+        drawBitmapWithMatrix(canvas);
+        drawBitmapWithRect(canvas);
+        drawBitmapColors(canvas);
+    }
+
+    /**
+     * 在指定的位置绘制Bitmap对象
+     * @param canvas
+     * @param left
+     * @param top
+     * @param paint
+     */
+    private void drawBitmap(Canvas canvas, int left, int top, Paint paint){
+        canvas.drawBitmap(bitmap, left, top,paint);
+    }
+
+    /**
+     * 绘制指定Matrix变换的bitmap
+     * @param canvas
+     */
+    private void drawBitmapWithMatrix(Canvas canvas){
+        Matrix matrix = new Matrix();
+        matrix.setTranslate(200,200);
+        matrix.postRotate(30);
+        canvas.drawBitmap(bitmap, matrix, paint);
+    }
+
+    /**
+     * 绘制指定DstRect大小的Bitmap
+     * @param canvas
+     */
+    private void drawBitmapWithRect(Canvas canvas){
+        Rect rectSrc = new Rect(0,0,100,100);
+        Rect rectDst = new Rect(100,100,300,400);
+        canvas.drawBitmap(bitmap, rectSrc,rectDst,paint);
+    }
+
+    private void drawBitmapColors(Canvas canvas){
+        Bitmap bitmap = Bitmap.createBitmap(200, 200, Bitmap.Config.ARGB_8888);
+        canvas.setBitmap(bitmap);
+        canvas.drawBitmap(new int[]{Color.RED,Color.BLUE,Color.GREEN},
+                1,1,0,0,200,200,false,paint);
+    }
+}
+```
+
+
+
 **3、drawColor系列**
 Canvas为我们提供了绘制背景色的方法。
 
@@ -243,3 +308,7 @@ private void drawColorWithPorterDuff(){
     iv_image.setImageBitmap(bitmapBG);
 }
 ```
+展示效果图：
+![porterduff](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%A7%86%E5%9B%BE%E5%9F%BA%E7%A1%80/%E5%9B%BE%E5%BA%93/PorterDuffMode.png)
+
+**4、drawXXX绘制图形系列**
