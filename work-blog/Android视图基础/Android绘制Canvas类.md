@@ -371,7 +371,7 @@ private void drawCircle(){
 }
 ```
 如下展示：
-![]()
+![drawCircle](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%A7%86%E5%9B%BE%E5%9F%BA%E7%A1%80/%E5%9B%BE%E5%BA%93/drawCircle.png)
 
 **5、drawOval绘制椭圆**
 
@@ -397,7 +397,7 @@ private void drawOval(){
     canvas.drawOval(rectF,paint);
 }
 ```
-![]()
+![drawOval](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%A7%86%E5%9B%BE%E5%9F%BA%E7%A1%80/%E5%9B%BE%E5%BA%93/drawOval.png)
 
 **6、drawRect绘制矩形**
 
@@ -431,7 +431,7 @@ private void drawRect(){
     iv_image.setImageBitmap(bitmap);
 }
 ```
-![drawRect]()
+![drawRect](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%A7%86%E5%9B%BE%E5%9F%BA%E7%A1%80/%E5%9B%BE%E5%BA%93/drawRect.png)
 
 **7、drawRoundRect绘制圆角矩形**
 
@@ -459,7 +459,7 @@ private void drawRoundRect(){
     iv_image.setImageBitmap(bitmap);
 }
 ```
-![]()
+![drawRoundRect](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%A7%86%E5%9B%BE%E5%9F%BA%E7%A1%80/%E5%9B%BE%E5%BA%93/drawRoundRect.png)
 
 **8、drawPoint绘制点**
 
@@ -500,7 +500,7 @@ private void drawPoints(){
 }
 ```
 
-![]()
+![drawpoint](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%A7%86%E5%9B%BE%E5%9F%BA%E7%A1%80/%E5%9B%BE%E5%BA%93/drawPoint.png)
 
 **9、drawLines绘制线条**
 1. drawLine(float startX, float startY, float stopX, float stopY, Paint paint)
@@ -522,3 +522,4 @@ private void drawLines(){
     iv_image.setImageBitmap(bitmap);
 }
 ```
+![drawline](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%A7%86%E5%9B%BE%E5%9F%BA%E7%A1%80/%E5%9B%BE%E5%BA%93/drawLines.png)
