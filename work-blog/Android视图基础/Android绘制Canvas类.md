@@ -346,4 +346,179 @@ private Bitmap createSrc(int w, int h) {
 展示效果图：
 ![porterduff](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%A7%86%E5%9B%BE%E5%9F%BA%E7%A1%80/%E5%9B%BE%E5%BA%93/PorterDuffMode.png)
 
-**4、drawXXX绘制图形系列**
+**4、drawCircle绘制圆形**
+通过drawCircle进行圆形的绘制。
+
+```java
+/**
+ * 绘制圆形
+ */
+private void drawCircle(){
+    Bitmap bitmap = Bitmap.createBitmap(800, 800, Bitmap.Config.ARGB_8888);
+    Canvas canvas = new Canvas(bitmap);
+    Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    paint.setFilterBitmap(true);
+    /**
+     * 此处设置Style样式：
+     * Paint.Style.STROKE：描边
+     * Paint.Style.FILL：填充
+     * Paint.Style.FILL_AND_STROKE：描边+填充
+     */
+    paint.setStyle(Paint.Style.FILL_AND_STROKE);
+    paint.setColor(Color.BLUE);
+    canvas.drawCircle(400, 400, 250, paint);
+    iv_image.setImageBitmap(bitmap);
+}
+```
+如下展示：
+![]()
+
+**5、drawOval绘制椭圆**
+
+- drawOval(float left, float top, float right, float bottom, Paint paint)
+- drawOval(RectF oval, Paint paint)
+
+通过以上两个重载方法实现椭圆的绘制。参照一下简单的demo。
+
+```java
+/**
+ * 绘制椭圆
+ */
+private void drawOval(){
+    Bitmap bitmap = Bitmap.createBitmap(400,400, Bitmap.Config.ARGB_8888);
+    Canvas canvas = new Canvas(bitmap);
+    Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    paint.setColor(Color.BLUE);
+    paint.setStyle(Paint.Style.FILL);
+    //通过指定定点坐标Rect来绘制椭圆
+    //canvas.drawOval(0,0,400,400,paint);
+    //通过指定RectF绘制椭圆
+    RectF rectF = new RectF(0,0,400,400);
+    canvas.drawOval(rectF,paint);
+}
+```
+![]()
+
+**6、drawRect绘制矩形**
+
+- drawRect(float left, float top, float right, float bottom, Paint paint)
+- drawRect(RectF rect, Paint paint)
+- drawRect(Rect r, Paint paint)
+
+绘制矩形。
+
+```java
+/**
+ * 绘制矩形
+ */
+private void drawRect(){
+    Bitmap bitmap = Bitmap.createBitmap(400,400, Bitmap.Config.ARGB_8888);
+    Canvas canvas = new Canvas(bitmap);
+    Paint paint = new Paint();
+    paint.setColor(Color.BLUE);
+
+    paint.setStyle(Paint.Style.FILL);
+    canvas.drawRect(0, 0, 400, 100,paint);
+
+    canvas.translate(0,150);
+    paint.setStyle(Paint.Style.STROKE);
+    canvas.drawRect(new RectF(0, 0, 399, 100),paint);
+
+    canvas.translate(0,150);
+    paint.setStyle(Paint.Style.FILL_AND_STROKE);
+    canvas.drawRect(new Rect(0, 0, 400, 100),paint);
+
+    iv_image.setImageBitmap(bitmap);
+}
+```
+![drawRect]()
+
+**7、drawRoundRect绘制圆角矩形**
+
+1. drawRoundRect(float left, float top, float right, float bottom, float rx, float ry, Paint paint)
+2. drawRoundRect(RectF rect, float rx, float ry, Paint paint)
+
+- left、top、right、bottom：用于指定Rect的大小。
+- rx：x方向上圆的半径；ry：y方向上圆的半径。
+- paint：画笔
+
+通过指定Rect来绘制圆角矩形。
+
+```java
+/**
+ * 绘制圆角矩形
+ */
+private void drawRoundRect(){
+    Bitmap bitmap = Bitmap.createBitmap(400, 400, Bitmap.Config.ARGB_8888);
+    Canvas canvas = new Canvas(bitmap);
+    Paint paint = new Paint();
+    paint.setColor(Color.YELLOW);
+
+    canvas.drawRoundRect(new RectF(10, 10, 300, 300),20, 20, paint);
+
+    iv_image.setImageBitmap(bitmap);
+}
+```
+![]()
+
+**8、drawPoint绘制点**
+
+1. drawPoint(float x, float y, Paint paint)：绘制单点操作
+    - x：x轴坐标
+    - y：y轴坐标
+    - paint：画笔
+2. drawPoints(float[] pts, int offset, int count, Paint paint)：绘制一系列点
+    - pts：一系列的点坐标集合[x0 y0 x1 y1 x2 y2 ...]；
+    - offset：开头跳过的点数
+    - count：处理数据的个数，注意这里一个点会使用两个数据，所以最终的点数为count>>1
+    - paint：用来绘制点的画笔
+3. drawPoints(float[] pts, Paint paint)：同2.
+
+在绘制点的方法中，核心是绘制一列点的方法。每个点在当前的坐标系下以给点的x、y作为中心，它的直接通过stroke width来指定，一般默认是1px。同时点的形状通过Cap来指定、有三种类型：
+
+- Paint.Cap.BUTT：无
+- Paint.Cap.ROUND：圆形
+- Paint.Cap.SQUARE：方形
+
+```java
+/**
+ * 绘制圆点
+ */
+private void drawPoints(){
+    Bitmap bitmap = Bitmap.createBitmap(400, 400, Bitmap.Config.ARGB_8888);
+    Canvas canvas = new Canvas(bitmap);
+    Paint paint = new Paint();
+    paint.setColor(Color.RED);
+    paint.setStrokeWidth(20);
+    paint.setStrokeCap(Paint.Cap.SQUARE);
+    canvas.drawPoint(20, 20,paint);
+
+    paint.setStrokeCap(Paint.Cap.ROUND);
+    canvas.drawPoints(new float[]{50,50,90,90},2,2,paint);
+
+    iv_image.setImageBitmap(bitmap);
+}
+```
+
+![]()
+
+**9、drawLines绘制线条**
+1. drawLine(float startX, float startY, float stopX, float stopY, Paint paint)
+2. drawLines(float[] pts, Paint paint)
+3. drawLines(float[] pts, int offset, int count, Paint paint)
+
+这里要注意pts参数，这个pts数组的长度要求必须是4的整数倍。绘制的顺序如下：drawLine(pts[0], pts[1], pts[2], pts[3]) 接着是：drawLine(pts[4], pts[5], pts[6], pts[7]) ，依次下去。
+
+```java
+private void drawLines(){
+    Bitmap bitmap = Bitmap.createBitmap(400, 400, Bitmap.Config.ARGB_8888);
+    Canvas canvas = new Canvas(bitmap);
+    Paint paint = new Paint();
+    paint.setColor(Color.GREEN);
+    canvas.drawLine(10, 10, 150, 150, paint);
+
+    paint.setColor(Color.RED);
+    canvas.drawLines(new float[]{20,30,40,70,80,100,200,300},paint);
+    iv_image.setImageBitmap(bitmap);
+}
+```
