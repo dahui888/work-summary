@@ -523,3 +523,14 @@ private void drawLines(){
 }
 ```
 ![drawline](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%A7%86%E5%9B%BE%E5%9F%BA%E7%A1%80/%E5%9B%BE%E5%BA%93/drawLines.png)
+
+**10、drawText绘制文本**
+
+- drawText(String text, float x, float y, Paint paint)
+- drawText(CharSequence text, int start, int end, float x, float y, Paint paint)
+- drawText(char[] text, int index, int count, float x, float y, Paint paint)
+- drawText(String text, int start, int end, float x, float y, Paint paint)
+- drawTextOnPath(String text, Path path, float hOffset, float vOffset, Paint paint)
+- drawTextOnPath(char[] text, int index, int count, Path path, float hOffset, float vOffset, Paint paint)
+- drawTextRun(CharSequence text, int start, int end, int contextStart, int contextEnd, float x, float y, boolean isRtl, Paint paint)
+- drawTextRun(char[] text, int index, int count, int contextIndex, int contextCount, float x, float y, boolean isRtl, Paint paint)
