@@ -6,15 +6,15 @@
 3. 绘制物：Rect、Path、text、Bitmap
 4. 绘制方式的承载体：Paint
 
-#### 如何构建一个Canvas对象
+### 如何构建一个Canvas对象
 通过查看Canvas的api得知：
 - Canvas()：创建一个空的栅格画布。
 - Canvas(Bitmap bitmap)：构建一个指定bitmap的画布。
 
 构造方法有两种，一种是创建空的栅格画布画布对象用来绘制。另一种是构建一个Canvas对象，绘制在Bitmap上。
 
-#### Canvas方法介绍
-##### 1、clipXXX：裁剪画布
+### Canvas方法介绍
+#### 1、clipXXX：裁剪画布
 - clipPath(Path path)：裁剪掉指定的path区域的Canvas
 - clipPath(Path path, Region.Op op)：裁剪掉指定的path区域的Canvas，同时指定与上次裁剪的类型。
 - clipRect(int left, int top, int right, int bottom)：裁剪掉指定矩形的Canvas区域
@@ -112,7 +112,7 @@ canvas.clipPath(path, Region.Op.REPLACE);
 
 ![REPLACE](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%A7%86%E5%9B%BE%E5%9F%BA%E7%A1%80/%E5%9B%BE%E5%BA%93/Region.Op.REPLACE.png)
 
-##### 2、drawXXX系列方法
+#### 2、drawXXX系列方法
 Canvas是我们的画布，给我们提供了一系列的方法满足我们在画布上进行绘制的需求，通过对api的分类，主要可以分为以下几种的绘制：
 
 - drawArc：绘制圆弧。
@@ -527,10 +527,113 @@ private void drawLines(){
 **10、drawText绘制文本**
 
 - drawText(String text, float x, float y, Paint paint)
+	- text：绘制文本
+	- x、y：绘制文本的起始坐标位置
 - drawText(CharSequence text, int start, int end, float x, float y, Paint paint)
+   - text：绘制文本 
+   - start：绘制文本的起始下标
+   - end：绘制文本的终点下标,end - 1是最后一个字符的位置。所以一般绘制到文本的结尾，直接 text.length
 - drawText(char[] text, int index, int count, float x, float y, Paint paint)
 - drawText(String text, int start, int end, float x, float y, Paint paint)
 - drawTextOnPath(String text, Path path, float hOffset, float vOffset, Paint paint)
+	- text：绘制文本
+	- path：文本绘制依附的路径path
+	- hOffset：text绘制时距离path开头处的距离
+	- vOffset：text绘制在path上面还是下面的距离，above < 0, below >0
 - drawTextOnPath(char[] text, int index, int count, Path path, float hOffset, float vOffset, Paint paint)
 - drawTextRun(CharSequence text, int start, int end, int contextStart, int contextEnd, float x, float y, boolean isRtl, Paint paint)
+	- text：绘制文本 
+	- 0<= contextStart <= start <=end <= contextEnd <= text.length
+	-  isRtl：是否是从右往左绘制，true是；false：从左往右。
 - drawTextRun(char[] text, int index, int count, int contextIndex, int contextCount, float x, float y, boolean isRtl, Paint paint)
+
+```java
+private void createBitmapWithText(){
+    Bitmap bitmap = Bitmap.createBitmap(400,400, Bitmap.Config.ARGB_8888);
+    Canvas canvas = new Canvas(bitmap);
+    Paint paint = new Paint();
+    paint.setColor(Color.RED);
+    paint.setStyle(Paint.Style.STROKE);
+    paint.setTextSize(30);
+    canvas.drawColor(Color.LTGRAY);
+    //drawText(String text, float x, float y, Paint paint)
+    canvas.drawText("andoter",20,20,paint);
+
+    /**
+     * drawText(CharSequence text, int start, int end, float x, float y, Paint paint)
+     * text：绘制的文本
+     * start：绘制文本的起始下标
+     * end：绘制文本的终点下标,end - 1是最后一个字符的位置。所以一般绘制到文本的结尾，直接
+     *      text.length。
+     * x、y：文本绘制的位置
+     * paint：画笔
+     */
+    CharSequence text = "I`m an andoter";
+    canvas.drawText(text, 4, text.length(), 250, 20, paint);
+
+    /**
+     * drawTextRun(CharSequence text, int start, int end, int contextStart,int contextEnd,
+     *              float x, float y, boolean isRtl,Paint paint)
+     *  注意：0<= contextStart <= start <=end <= contextEnd <= text.length
+     *  isRtl：是否是从右往左绘制，true是；false：从左往右。
+     */
+    CharSequence textRun = "I`m an andoter";
+    //canvas.drawTextRun(text, 0, 10, 0,text.length(),20, 60, true,paint);
+
+    /**
+     * drawTextOnPath(String text, Path path, float hOffset,float vOffset, Paint paint)
+     *  text：绘制文本
+     *  path：文本所依附的路径
+     *  hOffset：text绘制时距离path开头处的距离
+     *  vOffset：text绘制在path上面还是下面的距离，above < 0, below >0
+     *  paint：画笔
+     */
+    Path path = new Path();
+    path.addArc(new RectF(50, 50, 150, 150), -90, 180);
+    //首先绘制出圆弧，突出效果
+    canvas.drawPath(path,paint);
+    canvas.drawTextOnPath("hello,andoter",path,0,-10,paint);
+
+    iv_image.setImageBitmap(bitmap);
+}
+```
+
+![drawText]()
+
+**11、drawPath绘制path路径图形**
+绘制path路径。这里需要熟练掌握通过path构建路径，然后绘制。一个简单的例子：
+
+```java
+private void createBitmapWithPath(){
+    Bitmap bitmap = Bitmap.createBitmap(400,400, Bitmap.Config.ARGB_8888);
+    Canvas canvas = new Canvas(bitmap);
+    Paint paint = new Paint();
+    paint.setStrokeWidth(2);
+    paint.setStyle(Paint.Style.STROKE);
+    paint.setColor(Color.BLUE);
+
+    Path path = new Path();
+    path.addCircle(100,100,50, Path.Direction.CW);
+    canvas.drawPath(path,paint);
+    iv_image.setImageBitmap(bitmap);
+}
+```
+
+**12、drawPicture绘制Picture对象**
+Picture对应可用于记录我们的绘制过程，所以自然少不了canvas对它的支持。这里就不展开了。
+
+```java
+private void createBitmapWithPicture(){
+    Picture picture = new Picture();
+    Canvas  canvas = picture.beginRecording(200,200);
+    Paint paint = new Paint();
+    paint.setColor(Color.BLUE);
+    canvas.drawRoundRect(new RectF(20, 20, 180, 180),5, 5, paint);
+    picture.endRecording();
+    iv_image.setImageDrawable(new PictureDrawable(picture));
+}
+```
+
+![drawPicture]()
+
+通过对上面draw方法的总结，可以看出Canvas画布给我们提供了很多绘图形的类。
