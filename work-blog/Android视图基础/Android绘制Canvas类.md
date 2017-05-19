@@ -343,8 +343,6 @@ private Bitmap createSrc(int w, int h) {
 
 >建议，最好实际拿着我上面的实例进行操作下，看看实际的效果。
 
-展示效果图：
-![porterduff](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%A7%86%E5%9B%BE%E5%9F%BA%E7%A1%80/%E5%9B%BE%E5%BA%93/PorterDuffMode.png)
 
 **4、drawCircle绘制圆形**
 通过drawCircle进行圆形的绘制。
@@ -598,7 +596,7 @@ private void createBitmapWithText(){
 }
 ```
 
-![drawText]()
+![drawText](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%A7%86%E5%9B%BE%E5%9F%BA%E7%A1%80/%E5%9B%BE%E5%BA%93/drawText.png)
 
 **11、drawPath绘制path路径图形**
 绘制path路径。这里需要熟练掌握通过path构建路径，然后绘制。一个简单的例子：
@@ -634,6 +632,6 @@ private void createBitmapWithPicture(){
 }
 ```
 
-![drawPicture]()
+![drawPicture](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%A7%86%E5%9B%BE%E5%9F%BA%E7%A1%80/%E5%9B%BE%E5%BA%93/picture.png)
 
 通过对上面draw方法的总结，可以看出Canvas画布给我们提供了很多绘图形的类。
