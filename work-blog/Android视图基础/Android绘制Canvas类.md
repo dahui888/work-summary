@@ -635,3 +635,6 @@ private void createBitmapWithPicture(){
 ![drawPicture](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%A7%86%E5%9B%BE%E5%9F%BA%E7%A1%80/%E5%9B%BE%E5%BA%93/picture.png)
 
 通过对上面draw方法的总结，可以看出Canvas画布给我们提供了很多绘图形的类。
+
+####3、Canvas基础变换
+在第二小节中，我们掌握了Canvas的基础绘制。
