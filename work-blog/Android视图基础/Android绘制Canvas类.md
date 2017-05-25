@@ -637,4 +637,71 @@ private void createBitmapWithPicture(){
 通过对上面draw方法的总结，可以看出Canvas画布给我们提供了很多绘图形的类。
 
 ####3、Canvas基础变换
-在第二小节中，我们掌握了Canvas的基础绘制。
+在第二小节中，我们对于Canvas中的绘制功能有了一定初步认识。这节中，我们开始学习Canvas的基本变换操作。这里主要包含：
+
+1. translate(float dx, float dy)
+2. scale(float sx, float sy)
+3. rotate(float degrees)
+4. skew(float sx, float sy)
+
+**1、Canvas.translate(float dx, float dy)**
+- dx：横坐标在X轴方向的平移距离
+- dy：纵坐标在Y轴方向的平移距离
+
+在这里，我仅仅说是坐标值在X、Y轴上的平移距离，并没有说是画布的平移。这个通过下面的实例很好证明“画布Canvas的平移”这句话描述是片面的。
+
+```java
+private void drawCanvas(){
+    Bitmap bitmap = Bitmap.createBitmap(400, 400, Bitmap.Config.ARGB_8888);
+    Canvas canvas = new Canvas(bitmap);
+    Paint paint = new Paint();
+    canvas.drawColor(Color.GRAY);
+
+    canvas.save();
+    paint.setColor(Color.BLUE);
+    canvas.translate(100f,100f);
+    canvas.drawColor(Color.YELLOW);
+    canvas.restore();
+
+    iv_image.setImageBitmap(bitmap);
+}
+```
+如下图：
+![drawWrong]()
+
+在上面代码中，我们绘制一个400×400大小的画布，同时进行平移100px。但是根据效果图来看，我们并没有发现画布的位置出现了移动，**所以很容易发现，针对画布进行的translate、scale、rotate、skew仅仅是针对画布中的图形的X、Y进行对应的变换。而画布的位置、大小并没有发生改变。**
+
+通过下面一个简单的实例，看看translate的具体效果。
+
+```java
+private void drawTranslateCanvas(){
+    Bitmap bitmap = Bitmap.createBitmap(400, 400, Bitmap.Config.ARGB_8888);
+    Canvas canvas = new Canvas(bitmap);
+    Paint paint = new Paint();
+    canvas.drawColor(Color.GRAY);
+    paint.setColor(Color.GREEN);
+    canvas.drawCircle(100, 100, 40, paint);
+
+    canvas.save();
+    paint.setColor(Color.BLUE);
+    canvas.translate(100f,100f);
+    canvas.drawCircle(100, 100, 40, paint);
+    canvas.restore();
+
+    iv_image.setImageBitmap(bitmap);
+}
+```
+![canvasTranslate]()
+
+可以看到，两个圆之间的x和y坐标差值就是我们的平移dx、dy。即，平移是针对图形的X、Y坐标值进行平移。
+
+**2、Canvas.scale() 坐标值进行缩放**
+
+- scale(float sx, float sy)
+	- sx：横坐标对应的缩放比例
+	- sy：纵坐标对应的缩放比例 
+- scale(float sx, float sy, float px, float py)
+	- sx：横坐标对应的缩放比例
+	- sy：纵坐标对应的缩放比例
+	- px：横坐标缩放的中心点
+	- py：纵坐标缩放的中心店
