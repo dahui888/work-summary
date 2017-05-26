@@ -668,7 +668,7 @@ private void drawCanvas(){
 ```
 如下图：
 
-![drawWrong]()
+![drawWrong](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%A7%86%E5%9B%BE%E5%9F%BA%E7%A1%80/%E5%9B%BE%E5%BA%93/translateWrong.png)
 
 在上面代码中，我们绘制一个400×400大小的画布，同时进行平移100px。但是根据效果图来看，我们并没有发现画布的位置出现了移动，**所以很容易发现，针对画布进行的translate、scale、rotate、skew仅仅是针对画布中的图形的X、Y进行对应的变换。而画布的位置、大小并没有发生改变。**
 
@@ -692,8 +692,7 @@ private void drawTranslateCanvas(){
     iv_image.setImageBitmap(bitmap);
 }
 ```
-
-![canvasTranslate]()
+![canvasTranslate](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%A7%86%E5%9B%BE%E5%9F%BA%E7%A1%80/%E5%9B%BE%E5%BA%93/canvastranslate.png)
 
 可以看到，两个圆之间的x和y坐标差值就是我们的平移dx、dy。即，平移是针对图形的X、Y坐标值进行平移。
 
@@ -744,7 +743,7 @@ private void drawScaleCanvas(){
 }
 ```
 
-![scale]()
+![scale](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%A7%86%E5%9B%BE%E5%9F%BA%E7%A1%80/%E5%9B%BE%E5%BA%93/scale.png)
 
 **2、scale(float sx, float sy, float px, float py)**
 
@@ -790,7 +789,7 @@ private void drawScaleCanvas(){
     iv_image.setImageBitmap(bitmap);
 }
 ```
-![scale1]()
+![scale1](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%A7%86%E5%9B%BE%E5%9F%BA%E7%A1%80/%E5%9B%BE%E5%BA%93/scale1.png)
 
 **3、Canvas.rotate坐标值进行旋转**
 
@@ -815,7 +814,7 @@ private void drawRotateCanvas(){
     iv_image.setImageBitmap(bitmap);
 }
 ```
-![rotate]()
+![rotate](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%A7%86%E5%9B%BE%E5%9F%BA%E7%A1%80/%E5%9B%BE%E5%BA%93/roate.png)
 
 **2、rotate(float degrees, float px, float py)**
 
@@ -854,7 +853,7 @@ private void drawRotateCanvas(){
     iv_image.setImageBitmap(bitmap);
 }
 ```
-![rotate1]()
+![rotate1](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%A7%86%E5%9B%BE%E5%9F%BA%E7%A1%80/%E5%9B%BE%E5%BA%93/roate1.png)
 
 **4、Canvas.skew() 坐标值进行错切**
 
