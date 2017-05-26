@@ -667,6 +667,7 @@ private void drawCanvas(){
 }
 ```
 如下图：
+
 ![drawWrong]()
 
 在上面代码中，我们绘制一个400×400大小的画布，同时进行平移100px。但是根据效果图来看，我们并没有发现画布的位置出现了移动，**所以很容易发现，针对画布进行的translate、scale、rotate、skew仅仅是针对画布中的图形的X、Y进行对应的变换。而画布的位置、大小并没有发生改变。**
@@ -691,6 +692,7 @@ private void drawTranslateCanvas(){
     iv_image.setImageBitmap(bitmap);
 }
 ```
+
 ![canvasTranslate]()
 
 可以看到，两个圆之间的x和y坐标差值就是我们的平移dx、dy。即，平移是针对图形的X、Y坐标值进行平移。
@@ -705,3 +707,164 @@ private void drawTranslateCanvas(){
 	- sy：纵坐标对应的缩放比例
 	- px：横坐标缩放的中心点
 	- py：纵坐标缩放的中心店
+
+**1、canvas.scale(float sx, float sy)**
+
+我们可以通过查看scale的源码：
+
+```java
+/**
+ * Preconcat the current matrix with the specified scale.
+ *
+ * @param sx The amount to scale in X
+ * @param sy The amount to scale in Y
+ */
+public void scale(float sx, float sy) {
+    native_scale(mNativeCanvasWrapper, sx, sy);
+}
+```
+
+通过上面的注释，我们可以看到sx、sy指的是X、Y的缩放比例，这里并没有指定是Canvas画布进行缩放。通过下面的一个简单例子可以发现：
+
+```java
+private void drawScaleCanvas(){
+    Bitmap bitmap = Bitmap.createBitmap(400, 400, Bitmap.Config.ARGB_8888);
+    Canvas canvas = new Canvas(bitmap);
+    Paint paint = new Paint();
+    paint.setColor(Color.GRAY);
+    canvas.drawRect(new Rect(0, 0, 400, 400), paint);
+
+    canvas.save();
+    paint.setColor(Color.BLUE);
+    canvas.scale(0.5f, 0.5f);
+    canvas.drawRect(new Rect(0, 0, 400, 400), paint);
+    canvas.restore();
+
+    iv_image.setImageBitmap(bitmap);
+}
+```
+
+![scale]()
+
+**2、scale(float sx, float sy, float px, float py)**
+
+```java
+/**
+ * Preconcat the current matrix with the specified scale.
+ *
+ * @param sx The amount to scale in X
+ * @param sy The amount to scale in Y
+ * @param px The x-coord for the pivot point (unchanged by the scale)
+ * @param py The y-coord for the pivot point (unchanged by the scale)
+ */
+public final void scale(float sx, float sy, float px, float py) {
+    translate(px, py);
+    scale(sx, sy);
+    translate(-px, -py);
+}
+```
+通过上面可以看到scale(sx,sy,px,py)的执行过程，是先进行平移px,py，然后在进行按照sx、sy的比例进行缩放，最后在平移回去。通过对过程的精简，即等价于：
+
+```java
+public final void scale(float sx, float sy, float px, float py) {
+    translate(px- sx*px, py - sy*py);
+    scale(sx, sy);
+}
+```
+我们通过一个简单的例子来观察下：
+
+```java
+private void drawScaleCanvas(){
+    Bitmap bitmap = Bitmap.createBitmap(400, 400, Bitmap.Config.ARGB_8888);
+    Canvas canvas = new Canvas(bitmap);
+    Paint paint = new Paint();
+    paint.setColor(Color.GRAY);
+    canvas.drawRect(new Rect(0, 0, 400, 400), paint);
+
+    canvas.save();
+    paint.setColor(Color.BLUE);
+    canvas.scale(0.5f, 0.5f, 100, 100);
+    canvas.drawRect(new Rect(0, 0, 400, 400), paint);
+    canvas.restore();
+
+    iv_image.setImageBitmap(bitmap);
+}
+```
+![scale1]()
+
+**3、Canvas.rotate坐标值进行旋转**
+
+**1、rotate(float degrees)**
+
+将canvas中绘制图形进行旋转角度degree。
+
+```java
+private void drawRotateCanvas(){
+    Bitmap bitmap = Bitmap.createBitmap(400, 400, Bitmap.Config.ARGB_8888);
+    Canvas canvas = new Canvas(bitmap);
+    Paint paint = new Paint();
+    paint.setColor(Color.GRAY);
+    canvas.drawRect(new Rect(0, 0, 400, 400), paint);
+
+    canvas.save();
+    paint.setColor(Color.BLUE);
+    canvas.rotate(30);
+    canvas.drawRect(new Rect(0, 0, 400, 400), paint);
+    canvas.restore();
+
+    iv_image.setImageBitmap(bitmap);
+}
+```
+![rotate]()
+
+**2、rotate(float degrees, float px, float py)**
+
+查看源码：
+```java
+/**
+ * Preconcat the current matrix with the specified rotation.
+ *
+ * @param degrees The amount to rotate, in degrees
+ * @param px The x-coord for the pivot point (unchanged by the rotation)
+ * @param py The y-coord for the pivot point (unchanged by the rotation)
+ */
+public final void rotate(float degrees, float px, float py) {
+    translate(px, py);
+    rotate(degrees);
+    translate(-px, -py);
+}
+```
+
+我们可以看到，执行的过程是跟scale的重载方法执行过程是相同的。起始就是以点(px,py)作为旋转中心，旋转degrees角度。
+
+```java
+private void drawRotateCanvas(){
+    Bitmap bitmap = Bitmap.createBitmap(400, 400, Bitmap.Config.ARGB_8888);
+    Canvas canvas = new Canvas(bitmap);
+    Paint paint = new Paint();
+    paint.setColor(Color.GRAY);
+    canvas.drawRect(new Rect(0, 0, 400, 400), paint);
+
+    canvas.save();
+    paint.setColor(Color.BLUE);
+    canvas.rotate(30, 100, 100);
+    canvas.drawRect(new Rect(0, 0, 400, 400), paint);
+    canvas.restore();
+
+    iv_image.setImageBitmap(bitmap);
+}
+```
+![rotate1]()
+
+**4、Canvas.skew() 坐标值进行错切**
+
+
+####3、Canvas画布图层操作
+在上面的基本图层操作中，我们对canvas的图层操作有了初次见面，下面我们看看基本的图层操作包含哪些。
+
+- save
+- saveLayer
+- saveLayerAlpha
+- restore
+- getSaveCount
+- restoreToCount
