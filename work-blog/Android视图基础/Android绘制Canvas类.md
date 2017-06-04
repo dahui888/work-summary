@@ -636,7 +636,7 @@ private void createBitmapWithPicture(){
 
 通过对上面draw方法的总结，可以看出Canvas画布给我们提供了很多绘图形的类。
 
-####3、Canvas基础变换
+#### 3、Canvas基础变换
 在第二小节中，我们对于Canvas中的绘制功能有了一定初步认识。这节中，我们开始学习Canvas的基本变换操作。这里主要包含：
 
 1. translate(float dx, float dy)
@@ -858,7 +858,7 @@ private void drawRotateCanvas(){
 **4、Canvas.skew() 坐标值进行错切**
 
 
-####3、Canvas画布图层操作
+#### 3、Canvas画布图层操作
 在上面的基本图层操作中，我们对canvas的图层操作有了初次见面，下面我们看看基本的图层操作包含哪些。
 
 - save
@@ -867,3 +867,64 @@ private void drawRotateCanvas(){
 - restore
 - getSaveCount
 - restoreToCount
+
+以上几个方法，可以归结为两类，一类是保存Canvas信息，另外一类是恢复Canvas保存信息。
+
+**1、cavnas.save()**
+
+```java
+/**
+ * Saves the current matrix and clip onto a private stack.
+ * <p>
+ * Subsequent calls to translate,scale,rotate,skew,concat or clipRect,
+ * clipPath will all operate as usual, but when the balancing call to
+ * restore() is made, those calls will be forgotten, and the settings that
+ * existed before the save() will be reinstated.
+ *
+ * @return The value to pass to restoreToCount() to balance this save()
+ */
+public int save() {
+    return native_save(mNativeCanvasWrapper, MATRIX_SAVE_FLAG | CLIP_SAVE_FLAG);
+}
+```
+
+通过源码的了解，我们可以得知**save方法用于单独保存当前的matrix和clip信息**。当我们调用save方法之后，我们调用canvas的translate、scale、rotate、skew、clipXX类的Canvas变换操作的时候，当吊起restore方法的时候，这些操作都会舍弃，重新恢复到save之前的状态。
+
+关于save方法的实例，我们可以参照之前的Cavnas变换的相关操作。
+
+**2、save(int saveFlags)**
+
+```java
+/**
+ * Based on saveFlags, can save the current matrix and clip onto a private
+ * stack.
+ * <p class="note"><strong>Note:</strong> if possible, use the
+ * parameter-less save(). It is simpler and faster than individually
+ * disabling the saving of matrix or clip with this method.
+ * <p>
+ * Subsequent calls to translate,scale,rotate,skew,concat or clipRect,
+ * clipPath will all operate as usual, but when the balancing call to
+ * restore() is made, those calls will be forgotten, and the settings that
+ * existed before the save() will be reinstated.
+ *
+ * @param saveFlags flag bits that specify which parts of the Canvas state
+ *                  to save/restore
+ * @return The value to pass to restoreToCount() to balance this save()
+ */
+public int save(@Saveflags int saveFlags) {
+    return native_save(mNativeCanvasWrapper, saveFlags);
+}
+```
+从上面的源码中可以看出，根据指定的saveFlag进行保存当前图层的信息。同样当调用save方法之后，调用Canvas的变换操作，我们在调用restore方法，就会设置我们所做的变换操作，恢复到save之前的状态。这里，可以通过指定saveFlag的值来保存Canvas的属性。
+
+1. MATRIX_SAVE_FLAG：保存对应的matrix信息
+2. CLIP_SAVE_FLAG：保存clip裁剪信息
+3. HAS_ALPHA_LAYER_SAVE_FLAG：保存Alpha信息
+4. FULL_COLOR_LAYER_SAVE_FLAG：保存颜色信息
+5. CLIP_TO_LAYER_SAVE_FLAG,：保存Clip裁剪信息
+6. ALL_SAVE_FLAG：保存所有信息
+
+**3、saveLayer**
+保存图层信息系列方法。saveLayer方法与save方法有些类似，但是区别在于saveLayer方法在一个“离屏”bitmap对象上进行绘制。saveLayer可以为canvas创建一个新的透明图层，在新的图层上绘制，并不会直接绘制到屏幕上，而会在restore之后，绘制到上一个图层或者屏幕上（如果没有上一个图层）。为什么会需要一个新的图层，例如在处理xfermode的时候，原canvas上的图（包括背景）会影响src和dst的合成，这个时候，使用一个新的透明图层是一个很好的选择。对PS有点了解的我们可以想象下图层的概念。
+
+![saveLayer](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%A7%86%E5%9B%BE%E5%9F%BA%E7%A1%80/%E5%9B%BE%E5%BA%93/saveLayer.png)
