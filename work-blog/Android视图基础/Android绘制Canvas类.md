@@ -925,6 +925,28 @@ public int save(@Saveflags int saveFlags) {
 6. ALL_SAVE_FLAG：保存所有信息
 
 **3、saveLayer**
+
 保存图层信息系列方法。saveLayer方法与save方法有些类似，但是区别在于saveLayer方法在一个“离屏”bitmap对象上进行绘制。saveLayer可以为canvas创建一个新的透明图层，在新的图层上绘制，并不会直接绘制到屏幕上，而会在restore之后，绘制到上一个图层或者屏幕上（如果没有上一个图层）。为什么会需要一个新的图层，例如在处理xfermode的时候，原canvas上的图（包括背景）会影响src和dst的合成，这个时候，使用一个新的透明图层是一个很好的选择。对PS有点了解的我们可以想象下图层的概念。
 
 ![saveLayer](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%A7%86%E5%9B%BE%E5%9F%BA%E7%A1%80/%E5%9B%BE%E5%BA%93/saveLayer.png)
+
+**4、restore**
+
+恢复Canvas到上一次调用save之前的状态。**注意，resotre方法调用的次数不能大于save调用的次数。**
+
+**5、getSaveCount**
+
+获取Canvas单独栈中所做的Matrix和Clip操作的次数。与调用的save次数或restore次数相同。
+
+**6、restoreToCount(int saveCount)**
+
+快速回退到某次save的操作。注意saveCount值不能小于1.
+```java
+int count = canvas.save();
+... // more calls potentially to save()
+canvas.restoreToCount(count);
+// now the canvas is back in the same state it was before the initial
+// call to save().
+```
+
+至此，对Canvas的基本使用有了初步的介绍。
