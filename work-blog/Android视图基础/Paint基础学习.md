@@ -207,3 +207,84 @@ public static class FontMetrics {
 
 ![Font](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%A7%86%E5%9B%BE%E5%9F%BA%E7%A1%80/%E5%9B%BE%E5%BA%93/Font.png)
 
+### 二、Paint关于常见属性设置
+
+**setColor(int color)**
+
+不做过多解释，设置画笔的颜色。
+
+**setAlpha(int a)**
+
+设置透明度，范围【0，255】，0是完全透明，255是完全不透明
+
+**setFlags(int flags)**
+
+设置画笔的属性标签，比如：ANTI_ALIAS_FLAG、DITHER_FLAG、LINEAR_TEXT_FLAG。
+
+**setAntiAlias(boolean aa)**
+
+打开抗锯齿。抗锯齿是依赖于算法的，算法决定抗锯齿的效率，在我们绘制棱角分明的图像时，比如一个矩形、一张位图，我们不需要打开抗锯齿。
+
+**setHinting(int mode)**
+
+设置画笔的
+
+**setStrokeCap(Paint.Cap cap)**
+
+设置画笔的笔头样式。
+
+**setStrokeJoin(Paint.Join join)**
+
+设置画笔的连接样式
+
+**setStrokeWidth(float width)**
+
+设置画笔描边宽度
+
+**setStyle(Paint.Style style)**
+
+设置画笔样式，FILL 、FILL_AND_STROKE 、STROKE 。
+
+**setTextAlign(Paint.Align align)**
+
+设置文字对齐方式
+
+**setTextSize(float textSize)**
+
+设置文字大小
+
+**setUnderlineText(boolean underlineText)**
+
+设置文字下划线
+
+**setXfermode(Xfermode xfermode)**
+
+设置混合模式
+
+**measureText(String text)**
+
+测量文字的宽度
+
+**setFakeBoldText(boolean fakeBoldText)**
+
+ 设置粗体文字，注意设置在小字体上效果会非常差 。
+
+ **setDither(boolean dither)**
+
+设置清除抖动对图像的影响，会使绘制出来的图片图像更加清晰，颜色更加平滑和饱满.。
+
+ **setFilterBitmap(boolean filter)**
+
+如果该项设置为true，则图像在动画进行中会滤掉对Bitmap图像的优化操作，加快速度显示。
+注意:本设置项依赖于dither和xfermode的设置。
+
+**getFontMetrics()**
+
+获取当前Paint的FontMetrics对象。
+
+**setPathEffect(PathEffect effect)**
+
+设置Path的样式。
+
+
+简介到此结束。
