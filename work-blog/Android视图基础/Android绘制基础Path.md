@@ -60,7 +60,7 @@ addXX类的方法可以完成在Path的对象中添加响应的图形结构。
 #### 5、quadTo(float x1, float y1, float x2, float y2)：绘制二阶贝塞尔曲线。
 绘制二阶的贝塞尔曲线。
 
-![Besai]()
+![Besai](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%A7%86%E5%9B%BE%E5%9F%BA%E7%A1%80/%E5%9B%BE%E5%BA%93/B%C3%A9zier_2_big.gif)
 
 
 #### 6、	cubicTo(float x1, float y1, float x2, float y2, float x3, float y3)：绘制三阶贝塞尔曲线。
