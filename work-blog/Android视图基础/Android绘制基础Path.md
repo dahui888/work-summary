@@ -82,4 +82,20 @@ addXX类的方法可以完成在Path的对象中添加响应的图形结构。
 #### 4、public boolean getPosTan(float distance, float pos[], float tan[])
 根据当前位置距离的起点位置长度，计算当前点的坐标。
 
+- distance：当前路径的长度
+- pos：当前路径对应的坐标位置，x==[0], y==[1]。不能为空
+- tan：当前长度对应的tan值。x==[0], y==[1]。不能为空。
+
+```java
+public boolean getPosTan(float distance, float pos[], float tan[]) {
+    if (pos != null && pos.length < 2 ||
+        tan != null && tan.length < 2) {
+        throw new ArrayIndexOutOfBoundsException();
+    }
+    return native_getPosTan(native_instance, distance, pos, tan);
+}
+```
+
+注意，这里的pos[]、tan[]必须创建数组大小不小于2；
+
 
