@@ -13,17 +13,17 @@
 
 ![dump hpreof file](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%BF%9B%E9%98%B6/Android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/img/Dump%20HPROF%20%20file.png)：将堆信息生成Hpreof文件，可以通过MAT工具进行分析内存。一般用于查看内存泄漏。
 
-![cause gc](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%BF%9B%E9%98%B6/Android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/img/Cause%20GC.png)：主动发起gc操作，用于观察进程的堆栈信息占用。
+![cause gc](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%BF%9B%E9%98%B6/Android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/img/Cause%20GC.png)：主动发起gc操作，用于观察进程的堆栈信息占用。即每次gc都会更新Heap信息。
 
 ![updateThread](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%BF%9B%E9%98%B6/Android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/img/Update%20Threads.png)：跟踪进程的线程信息。选中进程后，点击该图标，会将进程的相关线程信息显示在【Threads】列表项。
 
 ![startMethodProfiling](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%BF%9B%E9%98%B6/Android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/img/StartMethodProfiling.png)：方法分析工具用于分析方法的执行时间、cpu等信息。在Android2.1之前的系统，要求机器具有sdcard并且具有读写权限保存trace文件。在2.2以后的机器上就直接在调试机器上展示了。
 
-![Hierarchy](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%BF%9B%E9%98%B6/Android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/img/Hierarchy.png)：查看UI的布局结构信息。
+![Hierarchy](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%BF%9B%E9%98%B6/Android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/img/Hierarchy.png)：查看Activity的布局结构信息。
 
 ![systrace](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%BF%9B%E9%98%B6/Android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/img/systrace.png)：Systrace是Android4.1中新增的性能数据采样和分析工具。它可帮助开发者收集Android关键子系统（如surfaceflinger、WindowManagerService等Framework部分关键模块、服务，View系统等）的运行信息，从而帮助开发者更直观的分析系统瓶颈，改进性能。
 
-![Threads](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%BF%9B%E9%98%B6/Android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/img/Threads.png)：展示进程的Threads信息。
+![Threads](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%BF%9B%E9%98%B6/Android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/img/Threads.png)：展示进程的Threads信息。包含线程的id、name、statue等信息。
 
 ![Heap](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%BF%9B%E9%98%B6/Android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/img/Heap.png)：展示进程的堆信息。
 
@@ -31,8 +31,23 @@
 ![AllocationTracker](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%BF%9B%E9%98%B6/Android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/img/Allocation%20%20Tracker.png)：用来追踪每个对象Object申请的内存大小。首先切换到Allocation Tracker页，选中要追踪的进程，然后点击Start Tracking，接着在我们应用程序中所做的操作的内存变化就会被追踪记录。
 
 #### 二、基本概念补充
+1、RAM（random access memory）随机存取存储器，说白了就是内存
+- 寄存器（Registers）：速度最快的存储场所，因为寄存器位于处理器内部，我们在程序中无法控制
+- 栈（Stack）：存放基本类型的数据和对象的引用，但对象本身不存放在栈中，而是存放在堆中
+- 堆（Heap）：堆内存用来存放由new创建的对象和数组。在堆中分配的内存，由Java虚拟机的自动垃圾回收器（GC）来管理。
+- 静态域（static field）：  静态存储区域就是指在固定的位置存放应用程序运行时一直存在的数据，Java在内存中专门划分了一个静态存储区域来管理一些特殊的数据变量如静态的数据变量
+- 常量池（constant pool）：虚拟机必须为每个被装载的类型维护一个常量池。常量池就是该类型所用到常量的一个有序集和，包括直接常量（string,integer和floating point常量）和对其他类型，字段和方法的符号引用。
+- 非RAM存储：硬盘等永久存储空间
 
 
+**2、内存耗用名词解析**：
+
+- VSS - Virtual Set Size 虚拟耗用内存（包含共享库占用的内存）
+- RSS - Resident Set Size 实际使用物理内存（包含共享库占用的内存）
+- PSS - Proportional Set Size 实际使用的物理内存（比例分配共享库占用的内存）
+- USS - Unique Set Size 进程独自占用的物理内存（不包含共享库占用的内存）
+
+一般来说内存占用大小有如下规律：VSS >= RSS >= PSS >= USS。比如进程中使用了一个被3个进程使用的9k大小的共享库，RSS的大小会统计到9K，而PSS会统计3K的大小。
 
 #### 三、基本工具简介
 
@@ -40,5 +55,6 @@
 打开Eclipse软件，找到Help下的Install，输入一下网址：
  http://archive.eclipse.org/mat/1.3/update-site/
 
+安装MAT后，我们就可以直接在Eclipse中对Dump HPROF file进行直接的分析。
 
 ##### 2、
