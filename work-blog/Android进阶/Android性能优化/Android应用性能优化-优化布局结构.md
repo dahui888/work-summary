@@ -82,7 +82,7 @@ Hierarchy Viewer是Android系统给我们提供的UI布局结构分析神器。�
 Android给我们提供非常便捷的工具-Lint。用于检测我们普通的常见问题。Lint工具会自动给我们检测出问题。在Eclipse中使用方式如下：
 选中项目邮件——>Android Tools——>Run Lint：Check for Common Errors。
 如下面我选中的一个项目。
-![LintError]()
+![LintError](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%BF%9B%E9%98%B6/Android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/img/LintError.png)
 
 通过上面的例子，我们可以看到Lint给我们提示出：无用的控件、无用的字符串、不合适的单位。
 
