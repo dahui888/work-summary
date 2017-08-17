@@ -53,9 +53,11 @@ Hierarchy Viewer是Android系统给我们提供的UI布局结构分析神器。�
 在UI性能分析中，还可以通过GPU来分过度绘制的相关内容。在开发者模式下：
 设置 -> 开发者选项 -> 调试GPU过度绘制 -> 显示GPU过度绘制
 
+![gpu_sle](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%BF%9B%E9%98%B6/Android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/img/gpu.png)
+
 选中后，屏幕上有各种颜色，此时你可以切换到需要检测的程序，对于各个色块，对比一张Overdraw的参考图：
 
-![overdraw]()
+![overdraw](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%BF%9B%E9%98%B6/Android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/img/overdraw.png)
 
 颜色的表示度意义：
 - 红色：4x过度绘制，最严重
@@ -68,7 +70,12 @@ Hierarchy Viewer是Android系统给我们提供的UI布局结构分析神器。�
 
 我们来看看几个过度绘制的例子：
 
-![gpu_overdraw1]()
+![gpu_overdraw1](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%BF%9B%E9%98%B6/Android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/img/gpu_overdraw1.png)
+![gpu_overdraw](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%BF%9B%E9%98%B6/Android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/img/gpu_overdraw.png)
+
+来看一个布局合理的例子：
+
+![gpu_overdraw2](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%BF%9B%E9%98%B6/Android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/img/gpu_overdraw2.png)
 
 
 #### 四、使用Lint工具检测
