@@ -89,11 +89,18 @@ Android给我们提供非常便捷的工具-Lint。用于检测我们普通的�
 #### 五、总结
 **1、Hierarchy Viewer的使用范围**
 出于安全考虑，Hierarchy Viewer只能连接Android开发版手机或是模拟器。好在已经有牛人给我们提供了工具[ViewServer](https://github.com/romainguy/ViewServer)。
+
 **2、降低过度绘制，减少不必要的backgroud背景设置。**
 如果一个ParentView设置了背景图，子View也设置了背景图，很容易早晨背景的过度绘制。避免无用的背景绘制。
+
 **3、清除无用的组件，优化布局结构。**
+
 **4、尽量少使用layout_weight属性，它会导致measure进行二次测量，浪费时间。**
+
 **5、清楚无用的View Node，当一个布局没有子节点也没有背景background，可以删除掉。**
+
 **6、降低布局结构层次，尽量使用扁平化布局层次，比如RelativeLayout、FrameLayout。Android中默认的布局层次是10。**
+
 **7、降低过度绘制，通过canvas的clipXX方法来降低过度绘制区域。**
+
 **8、使用< inclue/>、< merge/>标签复用控件。**
