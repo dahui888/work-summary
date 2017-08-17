@@ -41,9 +41,52 @@ Hierarchy Viewer是Android系统给我们提供的UI布局结构分析神器。�
 - Profile Node：获取选中node的layout的时间。
 
 这里我们点击Profile Node计算出时间，单独拿出来一个Node进行分析：
+
 ![content](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%BF%9B%E9%98%B6/Android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/img/Content.png)
 
 在上面单个Node中，我们可以看到View的measure、layout、draw的时间。上图最底那三个彩色原点代表了当前View的性能指标，从左到右依次代表测量、布局、绘制的渲染时间，红色和黄色的点代表速度渲染较慢的View（当然了，有些时候较慢不代表有问题，譬如ViewGroup子节点越多、结构越复杂，性能就越差）。
 
 
 对于Android的UI来说，invalidate和requestLayout是最重要的过程，Hierarchyviewer提供了帮助我们Debug特定的UI执行invalidate和requestLayout过程的途径，方法很简单，只要选择希望执行这两种操作的View点击按钮就可以。当然，我们需要在例如onMeasure()这样的方法中打上断点。这个功能对于UI组件是自定义的非常有用，可以帮助单独观察相关界面显示逻辑是否正确。
+
+#### 三、使用GPU分析过度绘制
+在UI性能分析中，还可以通过GPU来分过度绘制的相关内容。在开发者模式下：
+设置 -> 开发者选项 -> 调试GPU过度绘制 -> 显示GPU过度绘制
+
+选中后，屏幕上有各种颜色，此时你可以切换到需要检测的程序，对于各个色块，对比一张Overdraw的参考图：
+
+![overdraw]()
+
+颜色的表示度意义：
+- 红色：4x过度绘制，最严重
+- 浅红色：3x过度绘制，比较严重
+- 绿色：2x过度绘制，一般
+- 蓝色：1x过度绘制
+- 无色：WebView渲染区域。
+
+过度绘制时指在同一个像素上进行了多次绘制，绘制的越多越浪费资源。最理想的状态时1x过度绘制，但是在实际中可能不是那么现实，但是要作为一个指标，尽量来保证GPU绘制次数比较少。通过优化布局结构、减少设置多余的背景等方式来减少过度绘制。
+
+我们来看看几个过度绘制的例子：
+
+![gpu_overdraw1]()
+
+
+#### 四、使用Lint工具检测
+Android给我们提供非常便捷的工具-Lint。用于检测我们普通的常见问题。Lint工具会自动给我们检测出问题。在Eclipse中使用方式如下：
+选中项目邮件——>Android Tools——>Run Lint：Check for Common Errors。
+如下面我选中的一个项目。
+![LintError]()
+
+通过上面的例子，我们可以看到Lint给我们提示出：无用的控件、无用的字符串、不合适的单位。
+
+#### 五、总结
+**1、Hierarchy Viewer的使用范围**
+出于安全考虑，Hierarchy Viewer只能连接Android开发版手机或是模拟器。好在已经有牛人给我们提供了工具[ViewServer](https://github.com/romainguy/ViewServer)。
+**2、降低过度绘制，减少不必要的backgroud背景设置。**
+如果一个ParentView设置了背景图，子View也设置了背景图，很容易早晨背景的过度绘制。避免无用的背景绘制。
+**3、清除无用的组件，优化布局结构。**
+**4、尽量少使用layout_weight属性，它会导致measure进行二次测量，浪费时间。**
+**5、清楚无用的View Node，当一个布局没有子节点也没有背景background，可以删除掉。**
+**6、降低布局结构层次，尽量使用扁平化布局层次，比如RelativeLayout、FrameLayout。Android中默认的布局层次是10。**
+**7、降低过度绘制，通过canvas的clipXX方法来降低过度绘制区域。**
+**8、使用< inclue/>、< merge/>标签复用控件。**
