@@ -5,58 +5,56 @@
 #### 一、Allocation Tracker内存分配追踪
 Allocation Tracker帮助我们进行操作的内存分配追踪，通过这个工具可以查看到哪个对象、哪个类的哪行代码以及哪个线程调用的这个内存分配操作。
 
-![eclipseTracker]()
+![eclipseTracker](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%BF%9B%E9%98%B6/Android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/img/eclipse_AllocationTracker.png)
 
 在Eclipse模式下的DDMS提供的AllocationTracker只能根据申请的内存对象进行查看，选中对应的记录可以在下面的对话框中追踪到对应的代码片段。
 
-![](Allocation)
+![Allocation](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%BF%9B%E9%98%B6/Android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/img/AllocationTracer.png)
 
 接下来我们看看Android Studio中提供的内存追踪工具。在Android Studio中集成了Monitors视图，该视图中提供了很多实用检测工具，有Memory、CPU、Network、GPU的参数直观检测。而AllocationTracker工具就在Memory视图中。
 
-![StudioTool]()
+![StudioTool](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%BF%9B%E9%98%B6/Android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/img/studio%20AllocationTrackerTool.png)
 
 然后我们点击AllocationTracker按钮，开始检测追踪。
 
-![StudioStart]()
+![StudioStart](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%BF%9B%E9%98%B6/Android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/img/studiostart.png)
 
 同时在上面展示出检测结果图：
 
-![Android Studio]()
+![Android Studio](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%BF%9B%E9%98%B6/Android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/img/Androidstudio.png)
 
 在上面的结果中，我们可以看到AndroidStudio给我们提供了更加人性化的工具，首先我们可以对结果进行分类：根据Method名称或者Allocator（内存分配器）进行分类。同时也可以通过形状图来直观观察。
 
 **Group by Method**
 
-![method分类]()
+![method分类](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%BF%9B%E9%98%B6/Android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/img/method.png)
 
 Method分类通过方法名进行分类。我们可以看到不同方法占用内存的大小不一，我们主要是分析占用比例比较大的内存。我们展开dispatchTransformedTouchEvent方法，可以看到自定义View的onTouchEvent所占的比例。
 
 **Group by Allocator**
 
-![byallocator]()
+![byallocator](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%BF%9B%E9%98%B6/Android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/img/groupbyallcator.png)
 
 通过Allocator进行分类，我们可以更直接快速定位到我们的代码中，比如上面我们可以看到我们ScrollLinearLayout的内存使用情况。同时我们邮件选中类，可以通过Jump To Source跳转到源代码。
 
 **饼状图**
 
-![circle]()
+![circle](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%BF%9B%E9%98%B6/Android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/img/circle.png)
 
 饼状图是以圆心为起点，最外层是其内存实际分配的对象，每一个同心圆可能被分割成多个部分，代表了其不同的子孙，每一个同心圆代表他的一个后代，每个分割的部分代表了某一带人有多人，你双击某个同心圆中某个分割的部分，会变成以你点击的那一代为圆心再向外展开。如果想回到原始状态，双击圆心就可以了。
 
 **柱状图**
 
-![layout]()
+![layout](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%BF%9B%E9%98%B6/Android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/img/layout.png)
 
 柱状图以左边为起始点，从左到右的顺序是某个的堆栈信息顺序，纵坐标上的宽度是以其Count/Size的大小决定的。柱状图的内容其实和轮胎图没什么特别的地方。
-
-
 
 #### 二、TraceView追踪运行时间
 通过上面的方法，可以帮助我们查看各个部分的占用资源大小，那么占用内存大一般时间久比较长，占用的cpu资源就比较高。这里我们通过Start Method Profiling工具进行追踪。使用步骤：点击选中Start Method Profiling工具，然后操作我们需要监控的操作即可。
 
 如下图，我们点击Start Method Profiling采集的追踪数据。
 
-![eclipsemethodprofiling]()
+![eclipsemethodprofiling](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%BF%9B%E9%98%B6/Android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/img/eclipsemethodprofiling.png)
 
 在上图中，显示了每个方法的执行时间。
 
@@ -77,12 +75,11 @@ Method分类通过方法名进行分类。我们可以看到不同方法占用�
 
 Android Studio中，工具名称是“Start Method tracing”.
 
-![methodtracing]()
+![methodtracing](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%BF%9B%E9%98%B6/Android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/img/methodtracing.png)
 
 点击之后就可以监听我们的操作了。
 
-![studiotrading]()
-
+![studiotrading](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%BF%9B%E9%98%B6/Android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/img/studiotracing.png)
 
 #### 三、trace.txt分析ANR异常
 **ANR(Application Not Responding)定义**
@@ -107,7 +104,7 @@ Android Studio中，工具名称是“Start Method tracing”.
 
 出现Application Not Responding的提示后，系统会将日志LOG写到到data\anr\traces.txt文件
 
-![tracetxt]()
+![tracetxt](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%BF%9B%E9%98%B6/Android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/img/trace.png)
 
 上图中，我们可以看到出现ANR的位置就在
 
