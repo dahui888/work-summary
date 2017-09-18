@@ -19,11 +19,13 @@ Groovy的搭建工具：
 在IntelliJ IDEA工具中创建一个Groovy工程的步骤如下：
 File->New Project->Groovy
 
-![Groovy]()
+![Groovy](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%BF%9B%E9%98%B6/Gradle%E6%9E%84%E5%BB%BA%E5%AD%A6%E4%B9%A0/img/groovy.png)
 
 我们创建一个HelloWorld程序。
 
-![HelloWorld]()
+![HelloWorld](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%BF%9B%E9%98%B6/Gradle%E6%9E%84%E5%BB%BA%E5%AD%A6%E4%B9%A0/img/HelloWorld.png)
+
+![grovyclass](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E8%BF%9B%E9%98%B6/Gradle%E6%9E%84%E5%BB%BA%E5%AD%A6%E4%B9%A0/img/GroovyClass.png)
 
 通过上面，可以看到Groovy也是可以运行Java程序的，然后我们编译，查看out文件夹中编译生成的文件。可以看到是一个编译后的HelloWorld.class文件。同时也印证了Groovy是基于Java扩展而来运行在JVM上的动态语言。
 
