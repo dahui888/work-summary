@@ -43,9 +43,9 @@
 **2、内存耗用名词解析**：
 
 - VSS - Virtual Set Size 虚拟耗用内存（包含共享库占用的内存）
-- RSS - Resident Set Size 实际使用物理内存（包含共享库占用的内存）
-- PSS - Proportional Set Size 实际使用的物理内存（比例分配共享库占用的内存）
-- USS - Unique Set Size 进程独自占用的物理内存（不包含共享库占用的内存）
+- RSS - Resident Set Size 实际使用物理内存（包含共享库占用的内存），表示一个进程实际在RAM中占用的内存。
+- PSS - Proportional Set Size 实际使用的物理内存（比例分配共享库占用的内存），当系统中所有进程的PSS相加起来就是系统已用的全部内存。
+- USS - Unique Set Size 进程独自占用的物理内存（不包含共享库占用的内存），这个值标志着一个进程所占用的时机内存大小，如果进程被杀死，则返还给系统的内存大小就是USS的大小。我们通常使用USS来观察内存泄漏。
 
 一般来说内存占用大小有如下规律：VSS >= RSS >= PSS >= USS。比如进程中使用了一个被3个进程使用的9k大小的共享库，RSS的大小会统计到9K，而PSS会统计3K的大小。
 
