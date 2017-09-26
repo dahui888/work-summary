@@ -66,7 +66,29 @@ Heap Alloc 是 Dalvik 和原生堆分配器为您的应用跟踪的内存量。�
 **Private Dirty（USS） 和 Private Clean**
 Private Dirty 和 Private Clean 是您的进程中的总分配，未与其他进程共享。它们（尤其是 Private Dirty）等于您的进程被破坏后将释放回系统中的 RAM 量。脏 RAM 是因为已被修改而必须保持在 RAM 中的 RAM 页（因为没有交换）；干净 RAM 是已从某个持久性文件（例如正在执行的代码）映射的 RAM 页，如果一段时间不用，可以移出分页。
 
-所以一般我们分配给Android系统的堆大小是16M、24M，是只dalvik+native不能大于这个值。我们可以看到主要的内存占用集中在这个Unknown上。
+**Naitve Heap Size**
+从mallinfo usmblks获得，代表最大总共分配空间，Native Heap Size 约等于Native Heap Alloc + Native Heap Free。
+
+**Native Heap Alloc**
+从mallinfo uorblks获得，总共分配空间
+
+**Native Heap Free**
+从mallinfo fordblks获得，代表总共剩余空间 
+
+**Dalvik Heap Size**
+从Runtime totalMemory()获得，Dalvik Heap总共的内存大小。Dalvik Heap Size 约等于Dalvik  Heap Alloc + Dalvik  Heap Free
+
+**Dalvik Heap Alloc**
+Runtime totalMemory()-freeMemory() ，Dalvik Heap分配的内存大小。
+
+**Dalvik Heap Free**
+从Runtime freeMemory()获得，Dalvik Heap剩余的内存大小。
+
+
+##### 补充：
+1. 一般我们分配给Android系统的堆大小是16M、24M，是只dalvik+native不能大于这个值。我们可以看到主要的内存占用集中在这个Unknown上。
+2. mallinfo是一个C库， mallinfo 函数提供了各种各样的通过C的malloc（）函数分配的内存的统计信息。
+3. 
 
 
 ### 四、补充几个常见的工具类
