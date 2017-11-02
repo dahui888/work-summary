@@ -75,7 +75,7 @@ public interface Iterator<E> {
     public void remove();
 }
 ```
-Iterator接口用来实现遍历使用，通过Iterator接口可以看到一个重要结论**如果一个集合在生成Iterator后发生改变，使用next()方法会跑异常ConcurrentModificationException。**
+Iterator接口用来实现遍历使用，通过Iterator接口可以看到一个重要结论**如果一个集合在生成Iterator后发生改变，使用next()方法会跑异常ConcurrentModificationException，即fail-fast 机制。fail-fast 机制是java集合(Collection)中的一种错误机制。**
 
 #### Collection集合类
 
