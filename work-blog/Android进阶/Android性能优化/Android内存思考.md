@@ -88,7 +88,6 @@ Runtime totalMemory()-freeMemory() ，Dalvik Heap分配的内存大小。
 ##### 补充：
 1. 一般我们分配给Android系统的堆大小是16M、24M，是只dalvik+native不能大于这个值。我们可以看到主要的内存占用集中在这个Unknown上。
 2. mallinfo是一个C库， mallinfo 函数提供了各种各样的通过C的malloc（）函数分配的内存的统计信息。
-3. 
 
 
 ### 四、补充几个常见的工具类
