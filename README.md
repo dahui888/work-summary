@@ -11,6 +11,10 @@
 
 2、[ArrayList源码学习](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/Java%E9%9B%86%E5%90%88/ArrayList%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0.md)
 
+#####[三、设计模式系列](https://github.com/dengshiwei/work-summary/tree/master/work-blog/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F)
+1、[工厂模式](https://github.com/dengshiwei/work-summary/tree/master/work-blog/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F)
+
+2、[策略模式](https://github.com/dengshiwei/work-summary/tree/master/work-blog/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F)
 
 ### 二、Android从零单排
 1、[Activity使用总结](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Android%E4%BB%8E%E9%9B%B6%E5%8D%95%E6%8E%92/Activity%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93.md)
