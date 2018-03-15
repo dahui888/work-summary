@@ -121,12 +121,14 @@ class ConcreteGeneric implements Generic<String>{
 泛型方法是使用最多的一种泛型，使用的场景也比较多，比如泛型类中的泛型方法、普通类中的泛型方法、泛型方法与可变参数、静态方法与泛型等。
 
 **泛型方法的格式**
+
 泛型方法需要使用< T >来指明泛型格式。比如：
 ```java
 public <K> void add(K name){
     System.out.print(name);
 }
 ```
+
 **泛型方法与可变参数**
 ```java
 public <K> void printName(K... name){
@@ -135,6 +137,7 @@ public <K> void printName(K... name){
     }
 }
 ```
+
 **静态方法与泛型**
 ```java
 class Generics<T>{	
@@ -147,7 +150,9 @@ class Generics<T>{
 Java中的泛型是在编译期起到类型检查作用，在运行期是不可见的。所以在使用泛型的时候，我们可以通过边界限定来限制实参的类型。
 
 **泛型上边界**
+
 泛型上边界规定传入的实参比继续是指定类型的字类型。
+
 格式：*？extends 类型*
 
 <? extends T> 表示类型的上界，表示参数化类型的可能是T 或是 T的子类
@@ -155,6 +160,7 @@ Java中的泛型是在编译期起到类型检查作用，在运行期是不可�
 ```java
 public class Generic<T extends BoundingType>
 ```
+
 如上面所示，传入的实参类型必须是BoundingType类型的子类。（BoundingType是一个类或者接口）。其中的BoundingType可以多于1个，用“&”连接即可。
 
 **上界类型通配符add方法受限，但可以获取列表中的各种类型的数据，并赋值给父类型（extends Number）的引用。因此如果你想从一个数据类型里获取数据，使用 ? extends 通配符。限定通配符总是包括自己。**
