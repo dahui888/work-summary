@@ -153,12 +153,12 @@ Java中的泛型是在编译期起到类型检查作用，在运行期是不可�
 
 泛型上边界规定传入的实参比继续是指定类型的字类型。
 
-格式：*？extends 类型*
+格式：？extends 类型
 
-<? extends T> 表示类型的上界，表示参数化类型的可能是T 或是 T的子类
+< ? extends T > 表示类型的上界，表示参数化类型的可能是T 或是 T的子类。
 
 ```java
-public class Generic<T extends BoundingType>
+public class Generic< T extends BoundingType >
 ```
 
 如上面所示，传入的实参类型必须是BoundingType类型的子类。（BoundingType是一个类或者接口）。其中的BoundingType可以多于1个，用“&”连接即可。
@@ -169,15 +169,15 @@ public class Generic<T extends BoundingType>
 
 格式：*？supper 类型*
 
-<? super T> 表示类型下界（Java Core中叫超类型限定），表示参数化类型是此类型的超类型（父类型），直至Object
+< ? super T> 表示类型下界（Java Core中叫超类型限定），表示参数化类型是此类型的超类型（父类型），直至Object
 
 **下界类型通配符get方法受限，但可以往列表中添加各种数据类型的对象。因此如果你想把对象写入一个数据结构里，使用 ? super 通配符。限定通配符总是包括自己。**
 
 #### 通配符
 在java泛型中由于针对实参类型有很多不确定性，这里就引出了通配符的概念。
 - ? 通配符类型
-- <? extends T> 表示类型的上界，表示参数化类型的可能是T 或是 T的子类
-- <? super T> 表示类型下界（Java Core中叫超类型限定），表示参数化类型是此类型的超类型（父类型），直至Object
+- < ? extends T > 表示类型的上界，表示参数化类型的可能是T 或是 T的子类
+- < ? super T > 表示类型下界（Java Core中叫超类型限定），表示参数化类型是此类型的超类型（父类型），直至Object
 
 **通配符与T的区别**
 - T：作用于模板上，用于将数据类型进行参数化，不能用于实例化对象。
@@ -200,7 +200,8 @@ List<? extends Number> list = null;
 list = new ArrayList<Integer>();
 list = new ArrayList<Long>();
 ```
-我们不能够确定list存储的数据类型是Integer还是Long，因此我们使用List<? extends Number>定义变量的类型。
+
+我们不能够确定list存储的数据类型是Integer还是Long，因此我们使用List< ? extends Number >定义变量的类型。
 
 #### 泛型的原理
 **Java会在编辑期把泛型擦除掉**
