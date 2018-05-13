@@ -245,7 +245,7 @@ private Node enq(final Node node) {
 ```
 在addWaiter(Node node)方法中，将当前线程节点添加到等待队列中。
 
-![enq]()
+![enq](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/screenshot/enq.png)
 
 **acquireQueued在队列中的线程获取锁**
 ```java
@@ -305,7 +305,7 @@ final boolean acquireQueued(final Node node, int arg) {
 2. 如果尝试获取锁失败的话，构造同步节点（独占式的Node.EXCLUSIVE），通过addWaiter(Node node,int args)方法,将节点加入到同步队列的队列尾部。
 3. 最后调用acquireQueued(final Node node, int args)方法，使该节点以死循环的方式获取同步状态，如果获取不到，则阻塞节点中的线程。acquireQueued方法当前线程在死循环中获取同步状态，而只有前驱节点是头节点的时候才能尝试获取锁（同步状态）（ p == head && tryAcquire(arg)）。
 
-![lock]()
+![lock](https://github.com/dengshiwei/work-summary/blob/master/work-blog/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/screenshot/lock.png)
 
 **2、release(int)：独占锁的释放**
 在AQS中通过release方法进行锁的释放。
