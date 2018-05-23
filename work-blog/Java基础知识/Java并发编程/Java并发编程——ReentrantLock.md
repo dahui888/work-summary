@@ -287,7 +287,7 @@ public int getHoldCount() {
 获取锁在“持有”的线程上的锁计数器个数。
 
 **2.2.6 isHeldByCurrentThread（）**
-``java
+```java
 public boolean isHeldByCurrentThread() {
     return sync.isHeldExclusively();
 }
