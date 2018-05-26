@@ -203,6 +203,34 @@ public final void acquire(int arg) {
         selfInterrupt();
 }
 ```
+在acqurie()方法中，首先通过tryAcquire()方法进行快速申请判断。
+```java
+protected final boolean tryAcquire(int acquires) {
+    return nonfairTryAcquire(acquires);
+}
+
+final boolean nonfairTryAcquire(int acquires) {
+    final Thread current = Thread.currentThread();
+    int c = getState();
+    if (c == 0) {
+        if (compareAndSetState(0, acquires)) {
+            setExclusiveOwnerThread(current);
+            return true;
+        }
+    }
+    else if (current == getExclusiveOwnerThread()) {
+        int nextc = c + acquires;
+        if (nextc < 0) // overflow
+            throw new Error("Maximum lock count exceeded");
+        setState(nextc);
+        return true;
+    }
+    return false;
+}
+```
+这里我们可以看到在acquire方法中通过tryAcquire()进行快速申请锁，我们可以看到在tryAcquire内部是调用的Sync类的nonfairTryAcquire()方法。nonfairTryAcquire的逻辑如下：
+- 首先通过getState()获取同步器状态值，如果状态值为0，即当前锁是空闲，则设置为当前线程持有锁；
+- 如果当前线程已经具备锁，则将当前date进行+acquires。
 
 **2.1.2 公平锁FairSync**
 ```java
@@ -298,7 +326,7 @@ public boolean isHeldByCurrentThread() {
 1. ReenTrantLock可以指定是公平锁还是非公平锁。而synchronized只能是非公平锁。所谓的公平锁就是先等待的线程先获得锁。
 2. ReenTrantLock提供了一个Condition（条件）类，用来实现分组唤醒需要唤醒的线程们，而不是像synchronized要么随机唤醒一个线程要么唤醒全部线程。
 3. ReenTrantLock提供了一种能够中断等待锁的线程的机制，通过lock.lockInterruptibly()来实现这个机制。
-4. ReenTrantLock与synchronized相比，ReentrantLock提供了更多，更加全面的功能，具备更强的扩展性。例如：时间锁等候，可中断锁等候，锁投票。
+4. ReenTrantLock与synchronized相比，ReentrantLock提供了更多，更加全面的功能，具备更强的扩展性。例如：时间锁等候，可中断锁等候。
 
 **参考阅读**
 1. ReenTrantLock可重入锁（和synchronized的区别）总结：http://www.cnblogs.com/baizhanshi/p/7211802.html
