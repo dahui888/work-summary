@@ -270,6 +270,9 @@ static final class FairSync extends Sync {
 
 ReentrantLock支持公平所和非公平所，同时内部定义了Sync类实例，只需要根据构造方法中传入的要求创建对应的实例即可。
 
+**总结**
+1、公平锁和非公平锁体现在申请Lock时，公平锁直接通过acquire方法进行锁的申请，acquire方法的底层调用是tryAcquire方法，在tryAcquire方法中如果锁是空闲则返回true立即获取到锁，如果当前线程已经持有锁，则锁计数器+1，其它情况返回false。接着通过acquireQueued方法循环，申请不到添加到等待CLH队列中。在非公平锁中，先判断当前锁是否空闲，如果空闲则不管等待队列中的线程，直接申请到。反之如果被占有，则调用acquire方法。
+
 ##### 2.2 ReentrantLock方法解析
 **2.2.1 lock()**
 ```java
