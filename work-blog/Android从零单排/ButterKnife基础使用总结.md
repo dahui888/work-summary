@@ -41,6 +41,15 @@ butterknife是出自Android大神JakeWharton之手的一个开源库，它通过
 
 ----------
 
+由于在 Android Studio3.1 版本中已经将 apt 的注解编译更换成 annotationProcessor，所以最新的配置只需要在 module 的 build.gradle 中添加：
+```java
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+}
+```
+
 ### 三、ButterKnife常见使用
 
 1. 控件id 注解： @BindView(int id)
