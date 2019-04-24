@@ -174,3 +174,19 @@ javadoc {
 最后我们就完成了。
 
 终于搞好了。
+
+#### 引用
+在我们上传到 Maven 之后，我们就可以以 Maven 的形式引用，注意如果没有添加到 jCenter，我们就必须写地址。
+在项目的根目录下：
+```java
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+        maven {
+            url 'https://dl.bintray.com/dsw/maven'
+        }
+    }
+}
+```
