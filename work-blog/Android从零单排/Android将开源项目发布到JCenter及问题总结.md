@@ -3,7 +3,7 @@
 在Android开发中，我们都会通过compile来集成一些开源的项目，那么我们如何发布我们的开源项目让别人集成呢？下面我也来看网上的一些文章学习总结下。
 
 #### 集成方式
-晚上出现了很多集成方式，越来越简单。具体可以搜索下。我这里只总结我使用的方式，以便下次使用。
+网上出现了很多集成方式，越来越简单。具体可以搜索下。我这里只总结我使用的方式，以便下次使用。
 
 首先我们去[bintray](https://bintray.com/dsw)网站注册一个账号。然后接下来就是使用bintray插件集成。
 
@@ -167,8 +167,26 @@ javadoc {
 **2、gradlew bintrayUpload**
 执行这个就是上传我们的库到bintray。
 
+在 local.properties 中配置自己的用户名和 apikey，可以在个人信息的 View Profile 中查看。
+
 **3、最后到网站上找到我们的项目，点击Add to jCenter**
 
 最后我们就完成了。
 
 终于搞好了。
+
+#### 引用
+在我们上传到 Maven 之后，我们就可以以 Maven 的形式引用，注意如果没有添加到 jCenter，我们就必须写地址。
+在项目的根目录下：
+```java
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+        maven {
+            url 'https://dl.bintray.com/dsw/maven'
+        }
+    }
+}
+```
