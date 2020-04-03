@@ -106,6 +106,7 @@ install {
                 packaging 'aar'
                 // Add your description here
                 name 'CalendarComponent'     //项目描述
+                description 'CalendarComponent'
                 url siteUrl
                 // Set your license
                 licenses {
@@ -190,3 +191,4 @@ allprojects {
     }
 }
 ```
+
