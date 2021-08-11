@@ -1,3 +1,4 @@
+```java
 static void printCopyright() {
         println()
         String log1 = LogUI.C_BLACK_GREEN.value + "####################################################################" + LogUI.E_NORMAL.value
@@ -26,3 +27,4 @@ static void printCopyright() {
         println("${LogUI.C_BLACK_GREEN.value}" + "####################################################################" + "${LogUI.E_NORMAL.value}")
         println()
     }
+```
